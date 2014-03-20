@@ -286,36 +286,18 @@ case ${with_newlib} in
   yes) skipdirs=`echo " ${skipdirs} " | sed -e 's/ target-newlib / /'` ;;
 esac
 
-# Handle --enable-accelerator.  This is in top-level because both libgomp and
-# GCC proper need this information.
-# --disable-accelerator
-#   Default.  Do not build accelerator pieces, only support host execution.
-# --enable-accelerator=auto-device-triplet
-#   If possible, build accelerator pieces for 'device-triplet'.
-# --enable-accelerator=device-triplet
-#   Build accelerator pieces for 'device-triplet'.
-AC_ARG_ENABLE(accelerator,
-[AS_HELP_STRING([[--enable-accelerator[=ARG]]],
-		[build accelerator @<:@ARG={no,auto-device-triplet,device-triplet}@:>@])],
-ENABLE_ACCELERATOR=$enableval,
-ENABLE_ACCELERATOR=no)
-accel_target_noncanonical=NONE
-case "${ENABLE_ACCELERATOR}" in
-  yes)
-    AC_MSG_ERROR([--enable-accelerators must name accelerator])
-    skipdirs="${skipdirs} accel-gcc"
-    ;;
-  no)
-    skipdirs="${skipdirs} accel-gcc"
-    ;;
-  auto-nvptx*|nvptx*)
-    accel_target_noncanonical=`echo "$ENABLE_ACCELERATOR" | sed -e s/auto-//g`
-    ;;
-  *)
-    AC_MSG_ERROR([unrecognized accelerator])
-    skipdirs="${skipdirs} accel-gcc"
-    ;;
-esac
+offload_targets=
+
+AC_ARG_ENABLE(offload-targets,
+[AS_HELP_STRING([--enable-offload-targets=LIST],
+ [enable offloading to devices from LIST])],
+[
+  if test x$enable_offload_targets = x; then
+    AC_MSG_ERROR([no offload targets specified])
+  fi
+], [enable_offload_targets=])
+
+ACX_CANONICAL_ACCEL_TARGET
 
 # Handle --enable-gold, --enable-ld.
 # --disable-gold [--enable-ld]
@@ -3235,7 +3217,6 @@ case " $configdirs " in
     test $host = $build && RUNTEST='$$s/$(HOST_SUBDIR)/dejagnu/runtest'
     ;;
 esac
-
 
 # Host tools.
 NCN_STRICT_CHECK_TOOLS(AR, ar)

@@ -46,6 +46,10 @@ target_alias=@target_noncanonical@
 target_vendor=@target_vendor@
 target_os=@target_os@
 target=@target@
+accel_target_alias=@accel_target_noncanonical@
+accel_target_vendor=@accel_target_vendor@
+accel_target_os=@accel_target_os@
+accel_target=@accel_target@
 
 program_transform_name = @program_transform_name@
 
@@ -701,6 +705,7 @@ BASE_FLAGS_TO_PASS = \
 	"tooldir=$(tooldir)" \
 	"build_tooldir=$(build_tooldir)" \
 	"target_alias=$(target_alias)" \
+	"accel_target_alias=$(accel_target_alias)" \
 	"AWK=$(AWK)" \
 	"BISON=$(BISON)" \
 	"CC_FOR_BUILD=$(CC_FOR_BUILD)" \
@@ -2674,6 +2679,9 @@ configure-build-libiberty:
 	$(SHELL) $(srcdir)/mkinstalldirs $(BUILD_SUBDIR)/libiberty ; \
 	$(BUILD_EXPORTS)  \
 	echo Configuring in $(BUILD_SUBDIR)/libiberty; \
+	 \
+	this_target="${target_alias}"; \
+	 \
 	cd "$(BUILD_SUBDIR)/libiberty" || exit 1; \
 	case $(srcdir) in \
 	  /* | [A-Za-z]:[\\/]*) topdir=$(srcdir) ;; \
@@ -2681,12 +2689,14 @@ configure-build-libiberty:
 		sed -e 's,\./,,g' -e 's,[^/]*/,../,g' `$(srcdir) ;; \
 	esac; \
 	module_srcdir=libiberty; \
+	srcdiroption="--srcdir=$${topdir}/libiberty"; \
+	libsrcdir="$$s/libiberty"; \
 	rm -f no-such-file || : ; \
 	CONFIG_SITE=no-such-file $(SHELL) \
 	  $$s/$$module_srcdir/configure \
 	  --srcdir=$${topdir}/$$module_srcdir \
 	  $(BUILD_CONFIGARGS) --build=${build_alias} --host=${build_alias} \
-	  --target=${target_alias}  \
+	  --target=$${this_target} $${srcdiroption}  \
 	  || exit 1
 @endif build-libiberty
 
@@ -2731,6 +2741,9 @@ configure-build-bison:
 	$(SHELL) $(srcdir)/mkinstalldirs $(BUILD_SUBDIR)/bison ; \
 	$(BUILD_EXPORTS)  \
 	echo Configuring in $(BUILD_SUBDIR)/bison; \
+	 \
+	this_target="${target_alias}"; \
+	 \
 	cd "$(BUILD_SUBDIR)/bison" || exit 1; \
 	case $(srcdir) in \
 	  /* | [A-Za-z]:[\\/]*) topdir=$(srcdir) ;; \
@@ -2738,12 +2751,14 @@ configure-build-bison:
 		sed -e 's,\./,,g' -e 's,[^/]*/,../,g' `$(srcdir) ;; \
 	esac; \
 	module_srcdir=bison; \
+	srcdiroption="--srcdir=$${topdir}/bison"; \
+	libsrcdir="$$s/bison"; \
 	rm -f no-such-file || : ; \
 	CONFIG_SITE=no-such-file $(SHELL) \
 	  $$s/$$module_srcdir/configure \
 	  --srcdir=$${topdir}/$$module_srcdir \
 	  $(BUILD_CONFIGARGS) --build=${build_alias} --host=${build_alias} \
-	  --target=${target_alias}  \
+	  --target=$${this_target} $${srcdiroption}  \
 	  || exit 1
 @endif build-bison
 
@@ -2788,6 +2803,9 @@ configure-build-flex:
 	$(SHELL) $(srcdir)/mkinstalldirs $(BUILD_SUBDIR)/flex ; \
 	$(BUILD_EXPORTS)  \
 	echo Configuring in $(BUILD_SUBDIR)/flex; \
+	 \
+	this_target="${target_alias}"; \
+	 \
 	cd "$(BUILD_SUBDIR)/flex" || exit 1; \
 	case $(srcdir) in \
 	  /* | [A-Za-z]:[\\/]*) topdir=$(srcdir) ;; \
@@ -2795,12 +2813,14 @@ configure-build-flex:
 		sed -e 's,\./,,g' -e 's,[^/]*/,../,g' `$(srcdir) ;; \
 	esac; \
 	module_srcdir=flex; \
+	srcdiroption="--srcdir=$${topdir}/flex"; \
+	libsrcdir="$$s/flex"; \
 	rm -f no-such-file || : ; \
 	CONFIG_SITE=no-such-file $(SHELL) \
 	  $$s/$$module_srcdir/configure \
 	  --srcdir=$${topdir}/$$module_srcdir \
 	  $(BUILD_CONFIGARGS) --build=${build_alias} --host=${build_alias} \
-	  --target=${target_alias}  \
+	  --target=$${this_target} $${srcdiroption}  \
 	  || exit 1
 @endif build-flex
 
@@ -2845,6 +2865,9 @@ configure-build-m4:
 	$(SHELL) $(srcdir)/mkinstalldirs $(BUILD_SUBDIR)/m4 ; \
 	$(BUILD_EXPORTS)  \
 	echo Configuring in $(BUILD_SUBDIR)/m4; \
+	 \
+	this_target="${target_alias}"; \
+	 \
 	cd "$(BUILD_SUBDIR)/m4" || exit 1; \
 	case $(srcdir) in \
 	  /* | [A-Za-z]:[\\/]*) topdir=$(srcdir) ;; \
@@ -2852,12 +2875,14 @@ configure-build-m4:
 		sed -e 's,\./,,g' -e 's,[^/]*/,../,g' `$(srcdir) ;; \
 	esac; \
 	module_srcdir=m4; \
+	srcdiroption="--srcdir=$${topdir}/m4"; \
+	libsrcdir="$$s/m4"; \
 	rm -f no-such-file || : ; \
 	CONFIG_SITE=no-such-file $(SHELL) \
 	  $$s/$$module_srcdir/configure \
 	  --srcdir=$${topdir}/$$module_srcdir \
 	  $(BUILD_CONFIGARGS) --build=${build_alias} --host=${build_alias} \
-	  --target=${target_alias}  \
+	  --target=$${this_target} $${srcdiroption}  \
 	  || exit 1
 @endif build-m4
 
@@ -2902,6 +2927,9 @@ configure-build-texinfo:
 	$(SHELL) $(srcdir)/mkinstalldirs $(BUILD_SUBDIR)/texinfo ; \
 	$(BUILD_EXPORTS)  \
 	echo Configuring in $(BUILD_SUBDIR)/texinfo; \
+	 \
+	this_target="${target_alias}"; \
+	 \
 	cd "$(BUILD_SUBDIR)/texinfo" || exit 1; \
 	case $(srcdir) in \
 	  /* | [A-Za-z]:[\\/]*) topdir=$(srcdir) ;; \
@@ -2909,12 +2937,14 @@ configure-build-texinfo:
 		sed -e 's,\./,,g' -e 's,[^/]*/,../,g' `$(srcdir) ;; \
 	esac; \
 	module_srcdir=texinfo; \
+	srcdiroption="--srcdir=$${topdir}/texinfo"; \
+	libsrcdir="$$s/texinfo"; \
 	rm -f no-such-file || : ; \
 	CONFIG_SITE=no-such-file $(SHELL) \
 	  $$s/$$module_srcdir/configure \
 	  --srcdir=$${topdir}/$$module_srcdir \
 	  $(BUILD_CONFIGARGS) --build=${build_alias} --host=${build_alias} \
-	  --target=${target_alias}  \
+	  --target=$${this_target} $${srcdiroption}  \
 	  || exit 1
 @endif build-texinfo
 
@@ -2959,6 +2989,9 @@ configure-build-fixincludes:
 	$(SHELL) $(srcdir)/mkinstalldirs $(BUILD_SUBDIR)/fixincludes ; \
 	$(BUILD_EXPORTS)  \
 	echo Configuring in $(BUILD_SUBDIR)/fixincludes; \
+	 \
+	this_target="${target_alias}"; \
+	 \
 	cd "$(BUILD_SUBDIR)/fixincludes" || exit 1; \
 	case $(srcdir) in \
 	  /* | [A-Za-z]:[\\/]*) topdir=$(srcdir) ;; \
@@ -2966,12 +2999,14 @@ configure-build-fixincludes:
 		sed -e 's,\./,,g' -e 's,[^/]*/,../,g' `$(srcdir) ;; \
 	esac; \
 	module_srcdir=fixincludes; \
+	srcdiroption="--srcdir=$${topdir}/fixincludes"; \
+	libsrcdir="$$s/fixincludes"; \
 	rm -f no-such-file || : ; \
 	CONFIG_SITE=no-such-file $(SHELL) \
 	  $$s/$$module_srcdir/configure \
 	  --srcdir=$${topdir}/$$module_srcdir \
 	  $(BUILD_CONFIGARGS) --build=${build_alias} --host=${build_alias} \
-	  --target=${target_alias}  \
+	  --target=$${this_target} $${srcdiroption}  \
 	  || exit 1
 @endif build-fixincludes
 
@@ -3020,6 +3055,9 @@ configure-bfd:
 	$(SHELL) $(srcdir)/mkinstalldirs $(HOST_SUBDIR)/bfd ; \
 	$(HOST_EXPORTS)  \
 	echo Configuring in $(HOST_SUBDIR)/bfd; \
+	 \
+	this_target="${target_alias}"; \
+	 \
 	cd "$(HOST_SUBDIR)/bfd" || exit 1; \
 	case $(srcdir) in \
 	  /* | [A-Za-z]:[\\/]*) topdir=$(srcdir) ;; \
@@ -3027,11 +3065,13 @@ configure-bfd:
 		sed -e 's,\./,,g' -e 's,[^/]*/,../,g' `$(srcdir) ;; \
 	esac; \
 	module_srcdir=bfd; \
+	srcdiroption="--srcdir=$${topdir}/bfd"; \
+	libsrcdir="$$s/bfd"; \
 	$(SHELL) \
 	  $$s/$$module_srcdir/configure \
 	  --srcdir=$${topdir}/$$module_srcdir \
 	  $(HOST_CONFIGARGS) --build=${build_alias} --host=${host_alias} \
-	  --target=${target_alias}  \
+	  --target=$${this_target} $${srcdiroption}  \
 	  || exit 1
 @endif bfd
 
@@ -3894,6 +3934,9 @@ configure-opcodes:
 	$(SHELL) $(srcdir)/mkinstalldirs $(HOST_SUBDIR)/opcodes ; \
 	$(HOST_EXPORTS)  \
 	echo Configuring in $(HOST_SUBDIR)/opcodes; \
+	 \
+	this_target="${target_alias}"; \
+	 \
 	cd "$(HOST_SUBDIR)/opcodes" || exit 1; \
 	case $(srcdir) in \
 	  /* | [A-Za-z]:[\\/]*) topdir=$(srcdir) ;; \
@@ -3901,11 +3944,13 @@ configure-opcodes:
 		sed -e 's,\./,,g' -e 's,[^/]*/,../,g' `$(srcdir) ;; \
 	esac; \
 	module_srcdir=opcodes; \
+	srcdiroption="--srcdir=$${topdir}/opcodes"; \
+	libsrcdir="$$s/opcodes"; \
 	$(SHELL) \
 	  $$s/$$module_srcdir/configure \
 	  --srcdir=$${topdir}/$$module_srcdir \
 	  $(HOST_CONFIGARGS) --build=${build_alias} --host=${host_alias} \
-	  --target=${target_alias}  \
+	  --target=$${this_target} $${srcdiroption}  \
 	  || exit 1
 @endif opcodes
 
@@ -4768,6 +4813,9 @@ configure-binutils:
 	$(SHELL) $(srcdir)/mkinstalldirs $(HOST_SUBDIR)/binutils ; \
 	$(HOST_EXPORTS)  \
 	echo Configuring in $(HOST_SUBDIR)/binutils; \
+	 \
+	this_target="${target_alias}"; \
+	 \
 	cd "$(HOST_SUBDIR)/binutils" || exit 1; \
 	case $(srcdir) in \
 	  /* | [A-Za-z]:[\\/]*) topdir=$(srcdir) ;; \
@@ -4775,11 +4823,13 @@ configure-binutils:
 		sed -e 's,\./,,g' -e 's,[^/]*/,../,g' `$(srcdir) ;; \
 	esac; \
 	module_srcdir=binutils; \
+	srcdiroption="--srcdir=$${topdir}/binutils"; \
+	libsrcdir="$$s/binutils"; \
 	$(SHELL) \
 	  $$s/$$module_srcdir/configure \
 	  --srcdir=$${topdir}/$$module_srcdir \
 	  $(HOST_CONFIGARGS) --build=${build_alias} --host=${host_alias} \
-	  --target=${target_alias}  \
+	  --target=$${this_target} $${srcdiroption}  \
 	  || exit 1
 @endif binutils
 
@@ -5643,6 +5693,9 @@ configure-bison:
 	$(SHELL) $(srcdir)/mkinstalldirs $(HOST_SUBDIR)/bison ; \
 	$(HOST_EXPORTS)  \
 	echo Configuring in $(HOST_SUBDIR)/bison; \
+	 \
+	this_target="${target_alias}"; \
+	 \
 	cd "$(HOST_SUBDIR)/bison" || exit 1; \
 	case $(srcdir) in \
 	  /* | [A-Za-z]:[\\/]*) topdir=$(srcdir) ;; \
@@ -5650,11 +5703,13 @@ configure-bison:
 		sed -e 's,\./,,g' -e 's,[^/]*/,../,g' `$(srcdir) ;; \
 	esac; \
 	module_srcdir=bison; \
+	srcdiroption="--srcdir=$${topdir}/bison"; \
+	libsrcdir="$$s/bison"; \
 	$(SHELL) \
 	  $$s/$$module_srcdir/configure \
 	  --srcdir=$${topdir}/$$module_srcdir \
 	  $(HOST_CONFIGARGS) --build=${build_alias} --host=${host_alias} \
-	  --target=${target_alias}  \
+	  --target=$${this_target} $${srcdiroption}  \
 	  || exit 1
 @endif bison
 
@@ -6087,6 +6142,9 @@ configure-cgen:
 	$(SHELL) $(srcdir)/mkinstalldirs $(HOST_SUBDIR)/cgen ; \
 	$(HOST_EXPORTS)  \
 	echo Configuring in $(HOST_SUBDIR)/cgen; \
+	 \
+	this_target="${target_alias}"; \
+	 \
 	cd "$(HOST_SUBDIR)/cgen" || exit 1; \
 	case $(srcdir) in \
 	  /* | [A-Za-z]:[\\/]*) topdir=$(srcdir) ;; \
@@ -6094,11 +6152,13 @@ configure-cgen:
 		sed -e 's,\./,,g' -e 's,[^/]*/,../,g' `$(srcdir) ;; \
 	esac; \
 	module_srcdir=cgen; \
+	srcdiroption="--srcdir=$${topdir}/cgen"; \
+	libsrcdir="$$s/cgen"; \
 	$(SHELL) \
 	  $$s/$$module_srcdir/configure \
 	  --srcdir=$${topdir}/$$module_srcdir \
 	  $(HOST_CONFIGARGS) --build=${build_alias} --host=${host_alias} \
-	  --target=${target_alias}  \
+	  --target=$${this_target} $${srcdiroption}  \
 	  || exit 1
 @endif cgen
 
@@ -6528,6 +6588,9 @@ configure-dejagnu:
 	$(SHELL) $(srcdir)/mkinstalldirs $(HOST_SUBDIR)/dejagnu ; \
 	$(HOST_EXPORTS)  \
 	echo Configuring in $(HOST_SUBDIR)/dejagnu; \
+	 \
+	this_target="${target_alias}"; \
+	 \
 	cd "$(HOST_SUBDIR)/dejagnu" || exit 1; \
 	case $(srcdir) in \
 	  /* | [A-Za-z]:[\\/]*) topdir=$(srcdir) ;; \
@@ -6535,11 +6598,13 @@ configure-dejagnu:
 		sed -e 's,\./,,g' -e 's,[^/]*/,../,g' `$(srcdir) ;; \
 	esac; \
 	module_srcdir=dejagnu; \
+	srcdiroption="--srcdir=$${topdir}/dejagnu"; \
+	libsrcdir="$$s/dejagnu"; \
 	$(SHELL) \
 	  $$s/$$module_srcdir/configure \
 	  --srcdir=$${topdir}/$$module_srcdir \
 	  $(HOST_CONFIGARGS) --build=${build_alias} --host=${host_alias} \
-	  --target=${target_alias}  \
+	  --target=$${this_target} $${srcdiroption}  \
 	  || exit 1
 @endif dejagnu
 
@@ -6969,6 +7034,9 @@ configure-etc:
 	$(SHELL) $(srcdir)/mkinstalldirs $(HOST_SUBDIR)/etc ; \
 	$(HOST_EXPORTS)  \
 	echo Configuring in $(HOST_SUBDIR)/etc; \
+	 \
+	this_target="${target_alias}"; \
+	 \
 	cd "$(HOST_SUBDIR)/etc" || exit 1; \
 	case $(srcdir) in \
 	  /* | [A-Za-z]:[\\/]*) topdir=$(srcdir) ;; \
@@ -6976,11 +7044,13 @@ configure-etc:
 		sed -e 's,\./,,g' -e 's,[^/]*/,../,g' `$(srcdir) ;; \
 	esac; \
 	module_srcdir=etc; \
+	srcdiroption="--srcdir=$${topdir}/etc"; \
+	libsrcdir="$$s/etc"; \
 	$(SHELL) \
 	  $$s/$$module_srcdir/configure \
 	  --srcdir=$${topdir}/$$module_srcdir \
 	  $(HOST_CONFIGARGS) --build=${build_alias} --host=${host_alias} \
-	  --target=${target_alias}  \
+	  --target=$${this_target} $${srcdiroption}  \
 	  || exit 1
 @endif etc
 
@@ -7410,6 +7480,9 @@ configure-fastjar:
 	$(SHELL) $(srcdir)/mkinstalldirs $(HOST_SUBDIR)/fastjar ; \
 	$(HOST_EXPORTS)  \
 	echo Configuring in $(HOST_SUBDIR)/fastjar; \
+	 \
+	this_target="${target_alias}"; \
+	 \
 	cd "$(HOST_SUBDIR)/fastjar" || exit 1; \
 	case $(srcdir) in \
 	  /* | [A-Za-z]:[\\/]*) topdir=$(srcdir) ;; \
@@ -7417,11 +7490,13 @@ configure-fastjar:
 		sed -e 's,\./,,g' -e 's,[^/]*/,../,g' `$(srcdir) ;; \
 	esac; \
 	module_srcdir=fastjar; \
+	srcdiroption="--srcdir=$${topdir}/fastjar"; \
+	libsrcdir="$$s/fastjar"; \
 	$(SHELL) \
 	  $$s/$$module_srcdir/configure \
 	  --srcdir=$${topdir}/$$module_srcdir \
 	  $(HOST_CONFIGARGS) --build=${build_alias} --host=${host_alias} \
-	  --target=${target_alias}  \
+	  --target=$${this_target} $${srcdiroption}  \
 	  || exit 1
 @endif fastjar
 
@@ -7853,6 +7928,9 @@ configure-fixincludes:
 	$(SHELL) $(srcdir)/mkinstalldirs $(HOST_SUBDIR)/fixincludes ; \
 	$(HOST_EXPORTS)  \
 	echo Configuring in $(HOST_SUBDIR)/fixincludes; \
+	 \
+	this_target="${target_alias}"; \
+	 \
 	cd "$(HOST_SUBDIR)/fixincludes" || exit 1; \
 	case $(srcdir) in \
 	  /* | [A-Za-z]:[\\/]*) topdir=$(srcdir) ;; \
@@ -7860,11 +7938,13 @@ configure-fixincludes:
 		sed -e 's,\./,,g' -e 's,[^/]*/,../,g' `$(srcdir) ;; \
 	esac; \
 	module_srcdir=fixincludes; \
+	srcdiroption="--srcdir=$${topdir}/fixincludes"; \
+	libsrcdir="$$s/fixincludes"; \
 	$(SHELL) \
 	  $$s/$$module_srcdir/configure \
 	  --srcdir=$${topdir}/$$module_srcdir \
 	  $(HOST_CONFIGARGS) --build=${build_alias} --host=${host_alias} \
-	  --target=${target_alias}  \
+	  --target=$${this_target} $${srcdiroption}  \
 	  || exit 1
 @endif fixincludes
 
@@ -8713,6 +8793,9 @@ configure-flex:
 	$(SHELL) $(srcdir)/mkinstalldirs $(HOST_SUBDIR)/flex ; \
 	$(HOST_EXPORTS)  \
 	echo Configuring in $(HOST_SUBDIR)/flex; \
+	 \
+	this_target="${target_alias}"; \
+	 \
 	cd "$(HOST_SUBDIR)/flex" || exit 1; \
 	case $(srcdir) in \
 	  /* | [A-Za-z]:[\\/]*) topdir=$(srcdir) ;; \
@@ -8720,11 +8803,13 @@ configure-flex:
 		sed -e 's,\./,,g' -e 's,[^/]*/,../,g' `$(srcdir) ;; \
 	esac; \
 	module_srcdir=flex; \
+	srcdiroption="--srcdir=$${topdir}/flex"; \
+	libsrcdir="$$s/flex"; \
 	$(SHELL) \
 	  $$s/$$module_srcdir/configure \
 	  --srcdir=$${topdir}/$$module_srcdir \
 	  $(HOST_CONFIGARGS) --build=${build_alias} --host=${host_alias} \
-	  --target=${target_alias}  \
+	  --target=$${this_target} $${srcdiroption}  \
 	  || exit 1
 @endif flex
 
@@ -9156,6 +9241,9 @@ configure-gas:
 	$(SHELL) $(srcdir)/mkinstalldirs $(HOST_SUBDIR)/gas ; \
 	$(HOST_EXPORTS)  \
 	echo Configuring in $(HOST_SUBDIR)/gas; \
+	 \
+	this_target="${target_alias}"; \
+	 \
 	cd "$(HOST_SUBDIR)/gas" || exit 1; \
 	case $(srcdir) in \
 	  /* | [A-Za-z]:[\\/]*) topdir=$(srcdir) ;; \
@@ -9163,11 +9251,13 @@ configure-gas:
 		sed -e 's,\./,,g' -e 's,[^/]*/,../,g' `$(srcdir) ;; \
 	esac; \
 	module_srcdir=gas; \
+	srcdiroption="--srcdir=$${topdir}/gas"; \
+	libsrcdir="$$s/gas"; \
 	$(SHELL) \
 	  $$s/$$module_srcdir/configure \
 	  --srcdir=$${topdir}/$$module_srcdir \
 	  $(HOST_CONFIGARGS) --build=${build_alias} --host=${host_alias} \
-	  --target=${target_alias}  \
+	  --target=$${this_target} $${srcdiroption}  \
 	  || exit 1
 @endif gas
 
@@ -10030,6 +10120,9 @@ configure-gcc:
 	$(SHELL) $(srcdir)/mkinstalldirs $(HOST_SUBDIR)/gcc ; \
 	$(HOST_EXPORTS)  \
 	echo Configuring in $(HOST_SUBDIR)/gcc; \
+	 \
+	this_target="${target_alias}"; \
+	 \
 	cd "$(HOST_SUBDIR)/gcc" || exit 1; \
 	case $(srcdir) in \
 	  /* | [A-Za-z]:[\\/]*) topdir=$(srcdir) ;; \
@@ -10037,11 +10130,13 @@ configure-gcc:
 		sed -e 's,\./,,g' -e 's,[^/]*/,../,g' `$(srcdir) ;; \
 	esac; \
 	module_srcdir=gcc; \
+	srcdiroption="--srcdir=$${topdir}/gcc"; \
+	libsrcdir="$$s/gcc"; \
 	$(SHELL) \
 	  $$s/$$module_srcdir/configure \
 	  --srcdir=$${topdir}/$$module_srcdir \
 	  $(HOST_CONFIGARGS) --build=${build_alias} --host=${host_alias} \
-	  --target=${target_alias}  \
+	  --target=$${this_target} $${srcdiroption} @extra_target_gcc_configure_flags@ \
 	  || exit 1
 @endif gcc
 
@@ -10076,7 +10171,8 @@ configure-stage1-gcc:
 	  $(HOST_CONFIGARGS) --build=${build_alias} --host=${host_alias} \
 	  --target=${target_alias} \
 	   \
-	  $(STAGE1_CONFIGURE_FLAGS)
+	  $(STAGE1_CONFIGURE_FLAGS) \
+	  @extra_target_gcc_configure_flags@
 @endif gcc-bootstrap
 
 .PHONY: configure-stage2-gcc maybe-configure-stage2-gcc
@@ -10109,7 +10205,8 @@ configure-stage2-gcc:
 	  $(HOST_CONFIGARGS) --build=${build_alias} --host=${host_alias} \
 	  --target=${target_alias} \
 	   --with-build-libsubdir=$(HOST_SUBDIR)  \
-	  $(STAGE2_CONFIGURE_FLAGS)
+	  $(STAGE2_CONFIGURE_FLAGS) \
+	  @extra_target_gcc_configure_flags@
 @endif gcc-bootstrap
 
 .PHONY: configure-stage3-gcc maybe-configure-stage3-gcc
@@ -10142,7 +10239,8 @@ configure-stage3-gcc:
 	  $(HOST_CONFIGARGS) --build=${build_alias} --host=${host_alias} \
 	  --target=${target_alias} \
 	   --with-build-libsubdir=$(HOST_SUBDIR)  \
-	  $(STAGE3_CONFIGURE_FLAGS)
+	  $(STAGE3_CONFIGURE_FLAGS) \
+	  @extra_target_gcc_configure_flags@
 @endif gcc-bootstrap
 
 .PHONY: configure-stage4-gcc maybe-configure-stage4-gcc
@@ -10175,7 +10273,8 @@ configure-stage4-gcc:
 	  $(HOST_CONFIGARGS) --build=${build_alias} --host=${host_alias} \
 	  --target=${target_alias} \
 	   --with-build-libsubdir=$(HOST_SUBDIR)  \
-	  $(STAGE4_CONFIGURE_FLAGS)
+	  $(STAGE4_CONFIGURE_FLAGS) \
+	  @extra_target_gcc_configure_flags@
 @endif gcc-bootstrap
 
 .PHONY: configure-stageprofile-gcc maybe-configure-stageprofile-gcc
@@ -10208,7 +10307,8 @@ configure-stageprofile-gcc:
 	  $(HOST_CONFIGARGS) --build=${build_alias} --host=${host_alias} \
 	  --target=${target_alias} \
 	   --with-build-libsubdir=$(HOST_SUBDIR)  \
-	  $(STAGEprofile_CONFIGURE_FLAGS)
+	  $(STAGEprofile_CONFIGURE_FLAGS) \
+	  @extra_target_gcc_configure_flags@
 @endif gcc-bootstrap
 
 .PHONY: configure-stagefeedback-gcc maybe-configure-stagefeedback-gcc
@@ -10241,7 +10341,8 @@ configure-stagefeedback-gcc:
 	  $(HOST_CONFIGARGS) --build=${build_alias} --host=${host_alias} \
 	  --target=${target_alias} \
 	   --with-build-libsubdir=$(HOST_SUBDIR)  \
-	  $(STAGEfeedback_CONFIGURE_FLAGS)
+	  $(STAGEfeedback_CONFIGURE_FLAGS) \
+	  @extra_target_gcc_configure_flags@
 @endif gcc-bootstrap
 
 
@@ -10261,7 +10362,7 @@ all-gcc: configure-gcc
 	s=`cd $(srcdir); ${PWD_COMMAND}`; export s; \
 	$(HOST_EXPORTS)  \
 	(cd $(HOST_SUBDIR)/gcc && \
-	  $(MAKE) $(BASE_FLAGS_TO_PASS) $(EXTRA_HOST_FLAGS) $(STAGE1_FLAGS_TO_PASS) $(EXTRA_GCC_FLAGS) \
+	  $(MAKE) $(BASE_FLAGS_TO_PASS) $(EXTRA_HOST_FLAGS) $(STAGE1_FLAGS_TO_PASS) $(EXTRA_GCC_FLAGS) $(EXTRA_TARGET_GCC_FLAGS) \
 		$(TARGET-gcc))
 @endif gcc
 
@@ -10290,7 +10391,7 @@ all-stage1-gcc: configure-stage1-gcc
 		CXXFLAGS_FOR_TARGET="$(CXXFLAGS_FOR_TARGET)" \
 		LIBCFLAGS_FOR_TARGET="$(LIBCFLAGS_FOR_TARGET)" \
 		$(EXTRA_HOST_FLAGS)  \
-		$(STAGE1_FLAGS_TO_PASS) $(EXTRA_GCC_FLAGS) \
+		$(STAGE1_FLAGS_TO_PASS) $(EXTRA_GCC_FLAGS) $(EXTRA_TARGET_GCC_FLAGS) \
 		TFLAGS="$(STAGE1_TFLAGS)" \
 		$(TARGET-stage1-gcc)
 
@@ -10305,7 +10406,7 @@ clean-stage1-gcc:
 	fi; \
 	cd $(HOST_SUBDIR)/gcc && \
 	$(MAKE) $(EXTRA_HOST_FLAGS)  \
-	$(STAGE1_FLAGS_TO_PASS) $(EXTRA_GCC_FLAGS) clean
+	$(STAGE1_FLAGS_TO_PASS) $(EXTRA_GCC_FLAGS) $(EXTRA_TARGET_GCC_FLAGS) clean
 @endif gcc-bootstrap
 
 
@@ -10332,7 +10433,7 @@ all-stage2-gcc: configure-stage2-gcc
 		CFLAGS_FOR_TARGET="$(CFLAGS_FOR_TARGET)" \
 		CXXFLAGS_FOR_TARGET="$(CXXFLAGS_FOR_TARGET)" \
 		LIBCFLAGS_FOR_TARGET="$(LIBCFLAGS_FOR_TARGET)" \
-		$(EXTRA_HOST_FLAGS) $(POSTSTAGE1_FLAGS_TO_PASS) $(EXTRA_GCC_FLAGS) \
+		$(EXTRA_HOST_FLAGS) $(POSTSTAGE1_FLAGS_TO_PASS) $(EXTRA_GCC_FLAGS) $(EXTRA_TARGET_GCC_FLAGS) \
 		TFLAGS="$(STAGE2_TFLAGS)" \
 		$(TARGET-stage2-gcc)
 
@@ -10346,7 +10447,7 @@ clean-stage2-gcc:
 	  $(MAKE) stage2-start; \
 	fi; \
 	cd $(HOST_SUBDIR)/gcc && \
-	$(MAKE) $(EXTRA_HOST_FLAGS) $(POSTSTAGE1_FLAGS_TO_PASS) $(EXTRA_GCC_FLAGS) clean
+	$(MAKE) $(EXTRA_HOST_FLAGS) $(POSTSTAGE1_FLAGS_TO_PASS) $(EXTRA_GCC_FLAGS) $(EXTRA_TARGET_GCC_FLAGS) clean
 @endif gcc-bootstrap
 
 
@@ -10373,7 +10474,7 @@ all-stage3-gcc: configure-stage3-gcc
 		CFLAGS_FOR_TARGET="$(CFLAGS_FOR_TARGET)" \
 		CXXFLAGS_FOR_TARGET="$(CXXFLAGS_FOR_TARGET)" \
 		LIBCFLAGS_FOR_TARGET="$(LIBCFLAGS_FOR_TARGET)" \
-		$(EXTRA_HOST_FLAGS) $(POSTSTAGE1_FLAGS_TO_PASS) $(EXTRA_GCC_FLAGS) \
+		$(EXTRA_HOST_FLAGS) $(POSTSTAGE1_FLAGS_TO_PASS) $(EXTRA_GCC_FLAGS) $(EXTRA_TARGET_GCC_FLAGS) \
 		TFLAGS="$(STAGE3_TFLAGS)" \
 		$(TARGET-stage3-gcc)
 
@@ -10387,7 +10488,7 @@ clean-stage3-gcc:
 	  $(MAKE) stage3-start; \
 	fi; \
 	cd $(HOST_SUBDIR)/gcc && \
-	$(MAKE) $(EXTRA_HOST_FLAGS) $(POSTSTAGE1_FLAGS_TO_PASS) $(EXTRA_GCC_FLAGS) clean
+	$(MAKE) $(EXTRA_HOST_FLAGS) $(POSTSTAGE1_FLAGS_TO_PASS) $(EXTRA_GCC_FLAGS) $(EXTRA_TARGET_GCC_FLAGS) clean
 @endif gcc-bootstrap
 
 
@@ -10414,7 +10515,7 @@ all-stage4-gcc: configure-stage4-gcc
 		CFLAGS_FOR_TARGET="$(CFLAGS_FOR_TARGET)" \
 		CXXFLAGS_FOR_TARGET="$(CXXFLAGS_FOR_TARGET)" \
 		LIBCFLAGS_FOR_TARGET="$(LIBCFLAGS_FOR_TARGET)" \
-		$(EXTRA_HOST_FLAGS) $(POSTSTAGE1_FLAGS_TO_PASS) $(EXTRA_GCC_FLAGS) \
+		$(EXTRA_HOST_FLAGS) $(POSTSTAGE1_FLAGS_TO_PASS) $(EXTRA_GCC_FLAGS) $(EXTRA_TARGET_GCC_FLAGS) \
 		TFLAGS="$(STAGE4_TFLAGS)" \
 		$(TARGET-stage4-gcc)
 
@@ -10428,7 +10529,7 @@ clean-stage4-gcc:
 	  $(MAKE) stage4-start; \
 	fi; \
 	cd $(HOST_SUBDIR)/gcc && \
-	$(MAKE) $(EXTRA_HOST_FLAGS) $(POSTSTAGE1_FLAGS_TO_PASS) $(EXTRA_GCC_FLAGS) clean
+	$(MAKE) $(EXTRA_HOST_FLAGS) $(POSTSTAGE1_FLAGS_TO_PASS) $(EXTRA_GCC_FLAGS) $(EXTRA_TARGET_GCC_FLAGS) clean
 @endif gcc-bootstrap
 
 
@@ -10455,7 +10556,7 @@ all-stageprofile-gcc: configure-stageprofile-gcc
 		CFLAGS_FOR_TARGET="$(CFLAGS_FOR_TARGET)" \
 		CXXFLAGS_FOR_TARGET="$(CXXFLAGS_FOR_TARGET)" \
 		LIBCFLAGS_FOR_TARGET="$(LIBCFLAGS_FOR_TARGET)" \
-		$(EXTRA_HOST_FLAGS) $(POSTSTAGE1_FLAGS_TO_PASS) $(EXTRA_GCC_FLAGS) \
+		$(EXTRA_HOST_FLAGS) $(POSTSTAGE1_FLAGS_TO_PASS) $(EXTRA_GCC_FLAGS) $(EXTRA_TARGET_GCC_FLAGS) \
 		TFLAGS="$(STAGEprofile_TFLAGS)" \
 		$(TARGET-stageprofile-gcc)
 
@@ -10469,7 +10570,7 @@ clean-stageprofile-gcc:
 	  $(MAKE) stageprofile-start; \
 	fi; \
 	cd $(HOST_SUBDIR)/gcc && \
-	$(MAKE) $(EXTRA_HOST_FLAGS) $(POSTSTAGE1_FLAGS_TO_PASS) $(EXTRA_GCC_FLAGS) clean
+	$(MAKE) $(EXTRA_HOST_FLAGS) $(POSTSTAGE1_FLAGS_TO_PASS) $(EXTRA_GCC_FLAGS) $(EXTRA_TARGET_GCC_FLAGS) clean
 @endif gcc-bootstrap
 
 
@@ -10496,7 +10597,7 @@ all-stagefeedback-gcc: configure-stagefeedback-gcc
 		CFLAGS_FOR_TARGET="$(CFLAGS_FOR_TARGET)" \
 		CXXFLAGS_FOR_TARGET="$(CXXFLAGS_FOR_TARGET)" \
 		LIBCFLAGS_FOR_TARGET="$(LIBCFLAGS_FOR_TARGET)" \
-		$(EXTRA_HOST_FLAGS) $(POSTSTAGE1_FLAGS_TO_PASS) $(EXTRA_GCC_FLAGS) \
+		$(EXTRA_HOST_FLAGS) $(POSTSTAGE1_FLAGS_TO_PASS) $(EXTRA_GCC_FLAGS) $(EXTRA_TARGET_GCC_FLAGS) \
 		TFLAGS="$(STAGEfeedback_TFLAGS)" \
 		$(TARGET-stagefeedback-gcc)
 
@@ -10510,7 +10611,7 @@ clean-stagefeedback-gcc:
 	  $(MAKE) stagefeedback-start; \
 	fi; \
 	cd $(HOST_SUBDIR)/gcc && \
-	$(MAKE) $(EXTRA_HOST_FLAGS) $(POSTSTAGE1_FLAGS_TO_PASS) $(EXTRA_GCC_FLAGS) clean
+	$(MAKE) $(EXTRA_HOST_FLAGS) $(POSTSTAGE1_FLAGS_TO_PASS) $(EXTRA_GCC_FLAGS) $(EXTRA_TARGET_GCC_FLAGS) clean
 @endif gcc-bootstrap
 
 
@@ -10528,7 +10629,7 @@ check-gcc:
 	s=`cd $(srcdir); ${PWD_COMMAND}`; export s; \
 	$(HOST_EXPORTS) \
 	(cd $(HOST_SUBDIR)/gcc && \
-	  $(MAKE) $(FLAGS_TO_PASS) $(EXTRA_GCC_FLAGS) check)
+	  $(MAKE) $(FLAGS_TO_PASS) $(EXTRA_GCC_FLAGS) $(EXTRA_TARGET_GCC_FLAGS) check)
 
 @endif gcc
 
@@ -10543,7 +10644,7 @@ install-gcc: installdirs
 	s=`cd $(srcdir); ${PWD_COMMAND}`; export s; \
 	$(HOST_EXPORTS) \
 	(cd $(HOST_SUBDIR)/gcc && \
-	  $(MAKE) $(FLAGS_TO_PASS) $(EXTRA_GCC_FLAGS) install)
+	  $(MAKE) $(FLAGS_TO_PASS) $(EXTRA_GCC_FLAGS) $(EXTRA_TARGET_GCC_FLAGS) install)
 
 @endif gcc
 
@@ -10558,7 +10659,7 @@ install-strip-gcc: installdirs
 	s=`cd $(srcdir); ${PWD_COMMAND}`; export s; \
 	$(HOST_EXPORTS) \
 	(cd $(HOST_SUBDIR)/gcc && \
-	  $(MAKE) $(FLAGS_TO_PASS) $(EXTRA_GCC_FLAGS) install-strip)
+	  $(MAKE) $(FLAGS_TO_PASS) $(EXTRA_GCC_FLAGS) $(EXTRA_TARGET_GCC_FLAGS) install-strip)
 
 @endif gcc
 
@@ -10575,7 +10676,7 @@ info-gcc: \
 	r=`${PWD_COMMAND}`; export r; \
 	s=`cd $(srcdir); ${PWD_COMMAND}`; export s; \
 	$(HOST_EXPORTS) \
-	for flag in $(EXTRA_HOST_FLAGS) $(EXTRA_GCC_FLAGS); do \
+	for flag in $(EXTRA_HOST_FLAGS) $(EXTRA_GCC_FLAGS) $(EXTRA_TARGET_GCC_FLAGS); do \
 	  eval `echo "$$flag" | sed -e "s|^\([^=]*\)=\(.*\)|\1='\2'; export \1|"`; \
 	done; \
 	echo "Doing info in gcc" ; \
@@ -10600,7 +10701,7 @@ dvi-gcc: \
 	r=`${PWD_COMMAND}`; export r; \
 	s=`cd $(srcdir); ${PWD_COMMAND}`; export s; \
 	$(HOST_EXPORTS) \
-	for flag in $(EXTRA_HOST_FLAGS) $(EXTRA_GCC_FLAGS); do \
+	for flag in $(EXTRA_HOST_FLAGS) $(EXTRA_GCC_FLAGS) $(EXTRA_TARGET_GCC_FLAGS); do \
 	  eval `echo "$$flag" | sed -e "s|^\([^=]*\)=\(.*\)|\1='\2'; export \1|"`; \
 	done; \
 	echo "Doing dvi in gcc" ; \
@@ -10625,7 +10726,7 @@ pdf-gcc: \
 	r=`${PWD_COMMAND}`; export r; \
 	s=`cd $(srcdir); ${PWD_COMMAND}`; export s; \
 	$(HOST_EXPORTS) \
-	for flag in $(EXTRA_HOST_FLAGS) $(EXTRA_GCC_FLAGS); do \
+	for flag in $(EXTRA_HOST_FLAGS) $(EXTRA_GCC_FLAGS) $(EXTRA_TARGET_GCC_FLAGS); do \
 	  eval `echo "$$flag" | sed -e "s|^\([^=]*\)=\(.*\)|\1='\2'; export \1|"`; \
 	done; \
 	echo "Doing pdf in gcc" ; \
@@ -10650,7 +10751,7 @@ html-gcc: \
 	r=`${PWD_COMMAND}`; export r; \
 	s=`cd $(srcdir); ${PWD_COMMAND}`; export s; \
 	$(HOST_EXPORTS) \
-	for flag in $(EXTRA_HOST_FLAGS) $(EXTRA_GCC_FLAGS); do \
+	for flag in $(EXTRA_HOST_FLAGS) $(EXTRA_GCC_FLAGS) $(EXTRA_TARGET_GCC_FLAGS); do \
 	  eval `echo "$$flag" | sed -e "s|^\([^=]*\)=\(.*\)|\1='\2'; export \1|"`; \
 	done; \
 	echo "Doing html in gcc" ; \
@@ -10675,7 +10776,7 @@ TAGS-gcc: \
 	r=`${PWD_COMMAND}`; export r; \
 	s=`cd $(srcdir); ${PWD_COMMAND}`; export s; \
 	$(HOST_EXPORTS) \
-	for flag in $(EXTRA_HOST_FLAGS) $(EXTRA_GCC_FLAGS); do \
+	for flag in $(EXTRA_HOST_FLAGS) $(EXTRA_GCC_FLAGS) $(EXTRA_TARGET_GCC_FLAGS); do \
 	  eval `echo "$$flag" | sed -e "s|^\([^=]*\)=\(.*\)|\1='\2'; export \1|"`; \
 	done; \
 	echo "Doing TAGS in gcc" ; \
@@ -10701,7 +10802,7 @@ install-info-gcc: \
 	r=`${PWD_COMMAND}`; export r; \
 	s=`cd $(srcdir); ${PWD_COMMAND}`; export s; \
 	$(HOST_EXPORTS) \
-	for flag in $(EXTRA_HOST_FLAGS) $(EXTRA_GCC_FLAGS); do \
+	for flag in $(EXTRA_HOST_FLAGS) $(EXTRA_GCC_FLAGS) $(EXTRA_TARGET_GCC_FLAGS); do \
 	  eval `echo "$$flag" | sed -e "s|^\([^=]*\)=\(.*\)|\1='\2'; export \1|"`; \
 	done; \
 	echo "Doing install-info in gcc" ; \
@@ -10727,7 +10828,7 @@ install-pdf-gcc: \
 	r=`${PWD_COMMAND}`; export r; \
 	s=`cd $(srcdir); ${PWD_COMMAND}`; export s; \
 	$(HOST_EXPORTS) \
-	for flag in $(EXTRA_HOST_FLAGS) $(EXTRA_GCC_FLAGS); do \
+	for flag in $(EXTRA_HOST_FLAGS) $(EXTRA_GCC_FLAGS) $(EXTRA_TARGET_GCC_FLAGS); do \
 	  eval `echo "$$flag" | sed -e "s|^\([^=]*\)=\(.*\)|\1='\2'; export \1|"`; \
 	done; \
 	echo "Doing install-pdf in gcc" ; \
@@ -10753,7 +10854,7 @@ install-html-gcc: \
 	r=`${PWD_COMMAND}`; export r; \
 	s=`cd $(srcdir); ${PWD_COMMAND}`; export s; \
 	$(HOST_EXPORTS) \
-	for flag in $(EXTRA_HOST_FLAGS) $(EXTRA_GCC_FLAGS); do \
+	for flag in $(EXTRA_HOST_FLAGS) $(EXTRA_GCC_FLAGS) $(EXTRA_TARGET_GCC_FLAGS); do \
 	  eval `echo "$$flag" | sed -e "s|^\([^=]*\)=\(.*\)|\1='\2'; export \1|"`; \
 	done; \
 	echo "Doing install-html in gcc" ; \
@@ -10778,7 +10879,7 @@ installcheck-gcc: \
 	r=`${PWD_COMMAND}`; export r; \
 	s=`cd $(srcdir); ${PWD_COMMAND}`; export s; \
 	$(HOST_EXPORTS) \
-	for flag in $(EXTRA_HOST_FLAGS) $(EXTRA_GCC_FLAGS); do \
+	for flag in $(EXTRA_HOST_FLAGS) $(EXTRA_GCC_FLAGS) $(EXTRA_TARGET_GCC_FLAGS); do \
 	  eval `echo "$$flag" | sed -e "s|^\([^=]*\)=\(.*\)|\1='\2'; export \1|"`; \
 	done; \
 	echo "Doing installcheck in gcc" ; \
@@ -10802,7 +10903,7 @@ mostlyclean-gcc:
 	r=`${PWD_COMMAND}`; export r; \
 	s=`cd $(srcdir); ${PWD_COMMAND}`; export s; \
 	$(HOST_EXPORTS) \
-	for flag in $(EXTRA_HOST_FLAGS) $(EXTRA_GCC_FLAGS); do \
+	for flag in $(EXTRA_HOST_FLAGS) $(EXTRA_GCC_FLAGS) $(EXTRA_TARGET_GCC_FLAGS); do \
 	  eval `echo "$$flag" | sed -e "s|^\([^=]*\)=\(.*\)|\1='\2'; export \1|"`; \
 	done; \
 	echo "Doing mostlyclean in gcc" ; \
@@ -10826,7 +10927,7 @@ clean-gcc:
 	r=`${PWD_COMMAND}`; export r; \
 	s=`cd $(srcdir); ${PWD_COMMAND}`; export s; \
 	$(HOST_EXPORTS) \
-	for flag in $(EXTRA_HOST_FLAGS) $(EXTRA_GCC_FLAGS); do \
+	for flag in $(EXTRA_HOST_FLAGS) $(EXTRA_GCC_FLAGS) $(EXTRA_TARGET_GCC_FLAGS); do \
 	  eval `echo "$$flag" | sed -e "s|^\([^=]*\)=\(.*\)|\1='\2'; export \1|"`; \
 	done; \
 	echo "Doing clean in gcc" ; \
@@ -10850,7 +10951,7 @@ distclean-gcc:
 	r=`${PWD_COMMAND}`; export r; \
 	s=`cd $(srcdir); ${PWD_COMMAND}`; export s; \
 	$(HOST_EXPORTS) \
-	for flag in $(EXTRA_HOST_FLAGS) $(EXTRA_GCC_FLAGS); do \
+	for flag in $(EXTRA_HOST_FLAGS) $(EXTRA_GCC_FLAGS) $(EXTRA_TARGET_GCC_FLAGS); do \
 	  eval `echo "$$flag" | sed -e "s|^\([^=]*\)=\(.*\)|\1='\2'; export \1|"`; \
 	done; \
 	echo "Doing distclean in gcc" ; \
@@ -10874,7 +10975,7 @@ maintainer-clean-gcc:
 	r=`${PWD_COMMAND}`; export r; \
 	s=`cd $(srcdir); ${PWD_COMMAND}`; export s; \
 	$(HOST_EXPORTS) \
-	for flag in $(EXTRA_HOST_FLAGS) $(EXTRA_GCC_FLAGS); do \
+	for flag in $(EXTRA_HOST_FLAGS) $(EXTRA_GCC_FLAGS) $(EXTRA_TARGET_GCC_FLAGS); do \
 	  eval `echo "$$flag" | sed -e "s|^\([^=]*\)=\(.*\)|\1='\2'; export \1|"`; \
 	done; \
 	echo "Doing maintainer-clean in gcc" ; \
@@ -10904,6 +11005,9 @@ configure-gmp:
 	$(SHELL) $(srcdir)/mkinstalldirs $(HOST_SUBDIR)/gmp ; \
 	$(HOST_EXPORTS)  \
 	echo Configuring in $(HOST_SUBDIR)/gmp; \
+	 \
+	this_target="none-${host_vendor}-${host_os}"; \
+	 \
 	cd "$(HOST_SUBDIR)/gmp" || exit 1; \
 	case $(srcdir) in \
 	  /* | [A-Za-z]:[\\/]*) topdir=$(srcdir) ;; \
@@ -10911,11 +11015,13 @@ configure-gmp:
 		sed -e 's,\./,,g' -e 's,[^/]*/,../,g' `$(srcdir) ;; \
 	esac; \
 	module_srcdir=gmp; \
+	srcdiroption="--srcdir=$${topdir}/gmp"; \
+	libsrcdir="$$s/gmp"; \
 	$(SHELL) \
 	  $$s/$$module_srcdir/configure \
 	  --srcdir=$${topdir}/$$module_srcdir \
 	  $(HOST_CONFIGARGS) --build=${build_alias} --host=none-${host_vendor}-${host_os} \
-	  --target=none-${host_vendor}-${host_os} --disable-shared \
+	  --target=$${this_target} $${srcdiroption} --disable-shared \
 	  || exit 1
 @endif gmp
 
@@ -11772,6 +11878,9 @@ configure-mpfr:
 	$(SHELL) $(srcdir)/mkinstalldirs $(HOST_SUBDIR)/mpfr ; \
 	$(HOST_EXPORTS)  \
 	echo Configuring in $(HOST_SUBDIR)/mpfr; \
+	 \
+	this_target="${target_alias}"; \
+	 \
 	cd "$(HOST_SUBDIR)/mpfr" || exit 1; \
 	case $(srcdir) in \
 	  /* | [A-Za-z]:[\\/]*) topdir=$(srcdir) ;; \
@@ -11779,11 +11888,13 @@ configure-mpfr:
 		sed -e 's,\./,,g' -e 's,[^/]*/,../,g' `$(srcdir) ;; \
 	esac; \
 	module_srcdir=mpfr; \
+	srcdiroption="--srcdir=$${topdir}/mpfr"; \
+	libsrcdir="$$s/mpfr"; \
 	$(SHELL) \
 	  $$s/$$module_srcdir/configure \
 	  --srcdir=$${topdir}/$$module_srcdir \
 	  $(HOST_CONFIGARGS) --build=${build_alias} --host=${host_alias} \
-	  --target=${target_alias} --disable-shared @extra_mpfr_configure_flags@ \
+	  --target=$${this_target} $${srcdiroption} --disable-shared @extra_mpfr_configure_flags@ \
 	  || exit 1
 @endif mpfr
 
@@ -12640,6 +12751,9 @@ configure-mpc:
 	$(SHELL) $(srcdir)/mkinstalldirs $(HOST_SUBDIR)/mpc ; \
 	$(HOST_EXPORTS)  \
 	echo Configuring in $(HOST_SUBDIR)/mpc; \
+	 \
+	this_target="${target_alias}"; \
+	 \
 	cd "$(HOST_SUBDIR)/mpc" || exit 1; \
 	case $(srcdir) in \
 	  /* | [A-Za-z]:[\\/]*) topdir=$(srcdir) ;; \
@@ -12647,11 +12761,13 @@ configure-mpc:
 		sed -e 's,\./,,g' -e 's,[^/]*/,../,g' `$(srcdir) ;; \
 	esac; \
 	module_srcdir=mpc; \
+	srcdiroption="--srcdir=$${topdir}/mpc"; \
+	libsrcdir="$$s/mpc"; \
 	$(SHELL) \
 	  $$s/$$module_srcdir/configure \
 	  --srcdir=$${topdir}/$$module_srcdir \
 	  $(HOST_CONFIGARGS) --build=${build_alias} --host=${host_alias} \
-	  --target=${target_alias} --disable-shared @extra_mpc_gmp_configure_flags@ @extra_mpc_mpfr_configure_flags@ \
+	  --target=$${this_target} $${srcdiroption} --disable-shared @extra_mpc_gmp_configure_flags@ @extra_mpc_mpfr_configure_flags@ \
 	  || exit 1
 @endif mpc
 
@@ -13508,6 +13624,9 @@ configure-isl:
 	$(SHELL) $(srcdir)/mkinstalldirs $(HOST_SUBDIR)/isl ; \
 	$(HOST_EXPORTS)  \
 	echo Configuring in $(HOST_SUBDIR)/isl; \
+	 \
+	this_target="${target_alias}"; \
+	 \
 	cd "$(HOST_SUBDIR)/isl" || exit 1; \
 	case $(srcdir) in \
 	  /* | [A-Za-z]:[\\/]*) topdir=$(srcdir) ;; \
@@ -13515,11 +13634,13 @@ configure-isl:
 		sed -e 's,\./,,g' -e 's,[^/]*/,../,g' `$(srcdir) ;; \
 	esac; \
 	module_srcdir=isl; \
+	srcdiroption="--srcdir=$${topdir}/isl"; \
+	libsrcdir="$$s/isl"; \
 	$(SHELL) \
 	  $$s/$$module_srcdir/configure \
 	  --srcdir=$${topdir}/$$module_srcdir \
 	  $(HOST_CONFIGARGS) --build=${build_alias} --host=${host_alias} \
-	  --target=${target_alias} --disable-shared @extra_isl_gmp_configure_flags@ \
+	  --target=$${this_target} $${srcdiroption} --disable-shared @extra_isl_gmp_configure_flags@ \
 	  || exit 1
 @endif isl
 
@@ -14376,6 +14497,9 @@ configure-cloog:
 	$(SHELL) $(srcdir)/mkinstalldirs $(HOST_SUBDIR)/cloog ; \
 	$(HOST_EXPORTS) CPPFLAGS="$(HOST_GMPINC) $(HOST_ISLINC) $$CPPFLAGS"; export CPPFLAGS; LDFLAGS="-L$$r/$(HOST_SUBDIR)/gmp/.libs -L$$r/$(HOST_SUBDIR)/isl/.libs $$LDFLAGS"; export LDFLAGS;  \
 	echo Configuring in $(HOST_SUBDIR)/cloog; \
+	 \
+	this_target="${target_alias}"; \
+	 \
 	cd "$(HOST_SUBDIR)/cloog" || exit 1; \
 	case $(srcdir) in \
 	  /* | [A-Za-z]:[\\/]*) topdir=$(srcdir) ;; \
@@ -14383,11 +14507,13 @@ configure-cloog:
 		sed -e 's,\./,,g' -e 's,[^/]*/,../,g' `$(srcdir) ;; \
 	esac; \
 	module_srcdir=cloog; \
+	srcdiroption="--srcdir=$${topdir}/cloog"; \
+	libsrcdir="$$s/cloog"; \
 	$(SHELL) \
 	  $$s/$$module_srcdir/configure \
 	  --srcdir=$${topdir}/$$module_srcdir \
 	  $(HOST_CONFIGARGS) --build=${build_alias} --host=${host_alias} \
-	  --target=${target_alias} --disable-shared --with-gmp=system --with-bits=gmp --with-isl=system \
+	  --target=$${this_target} $${srcdiroption} --disable-shared --with-gmp=system --with-bits=gmp --with-isl=system \
 	  || exit 1
 @endif cloog
 
@@ -15244,6 +15370,9 @@ configure-libelf:
 	$(SHELL) $(srcdir)/mkinstalldirs $(HOST_SUBDIR)/libelf ; \
 	$(HOST_EXPORTS)  \
 	echo Configuring in $(HOST_SUBDIR)/libelf; \
+	 \
+	this_target="${target_alias}"; \
+	 \
 	cd "$(HOST_SUBDIR)/libelf" || exit 1; \
 	case $(srcdir) in \
 	  /* | [A-Za-z]:[\\/]*) topdir=$(srcdir) ;; \
@@ -15251,11 +15380,13 @@ configure-libelf:
 		sed -e 's,\./,,g' -e 's,[^/]*/,../,g' `$(srcdir) ;; \
 	esac; \
 	module_srcdir=libelf; \
+	srcdiroption="--srcdir=$${topdir}/libelf"; \
+	libsrcdir="$$s/libelf"; \
 	$(SHELL) \
 	  $$s/$$module_srcdir/configure \
 	  --srcdir=$${topdir}/$$module_srcdir \
 	  $(HOST_CONFIGARGS) --build=${build_alias} --host=${host_alias} \
-	  --target=${target_alias} --disable-shared \
+	  --target=$${this_target} $${srcdiroption} --disable-shared \
 	  || exit 1
 @endif libelf
 
@@ -16112,6 +16243,9 @@ configure-gold:
 	$(SHELL) $(srcdir)/mkinstalldirs $(HOST_SUBDIR)/gold ; \
 	$(HOST_EXPORTS)  \
 	echo Configuring in $(HOST_SUBDIR)/gold; \
+	 \
+	this_target="${target_alias}"; \
+	 \
 	cd "$(HOST_SUBDIR)/gold" || exit 1; \
 	case $(srcdir) in \
 	  /* | [A-Za-z]:[\\/]*) topdir=$(srcdir) ;; \
@@ -16119,11 +16253,13 @@ configure-gold:
 		sed -e 's,\./,,g' -e 's,[^/]*/,../,g' `$(srcdir) ;; \
 	esac; \
 	module_srcdir=gold; \
+	srcdiroption="--srcdir=$${topdir}/gold"; \
+	libsrcdir="$$s/gold"; \
 	$(SHELL) \
 	  $$s/$$module_srcdir/configure \
 	  --srcdir=$${topdir}/$$module_srcdir \
 	  $(HOST_CONFIGARGS) --build=${build_alias} --host=${host_alias} \
-	  --target=${target_alias}  \
+	  --target=$${this_target} $${srcdiroption}  \
 	  || exit 1
 @endif gold
 
@@ -16987,6 +17123,9 @@ configure-gprof:
 	$(SHELL) $(srcdir)/mkinstalldirs $(HOST_SUBDIR)/gprof ; \
 	$(HOST_EXPORTS)  \
 	echo Configuring in $(HOST_SUBDIR)/gprof; \
+	 \
+	this_target="${target_alias}"; \
+	 \
 	cd "$(HOST_SUBDIR)/gprof" || exit 1; \
 	case $(srcdir) in \
 	  /* | [A-Za-z]:[\\/]*) topdir=$(srcdir) ;; \
@@ -16994,11 +17133,13 @@ configure-gprof:
 		sed -e 's,\./,,g' -e 's,[^/]*/,../,g' `$(srcdir) ;; \
 	esac; \
 	module_srcdir=gprof; \
+	srcdiroption="--srcdir=$${topdir}/gprof"; \
+	libsrcdir="$$s/gprof"; \
 	$(SHELL) \
 	  $$s/$$module_srcdir/configure \
 	  --srcdir=$${topdir}/$$module_srcdir \
 	  $(HOST_CONFIGARGS) --build=${build_alias} --host=${host_alias} \
-	  --target=${target_alias}  \
+	  --target=$${this_target} $${srcdiroption}  \
 	  || exit 1
 @endif gprof
 
@@ -17427,6 +17568,9 @@ configure-intl:
 	$(SHELL) $(srcdir)/mkinstalldirs $(HOST_SUBDIR)/intl ; \
 	$(HOST_EXPORTS)  \
 	echo Configuring in $(HOST_SUBDIR)/intl; \
+	 \
+	this_target="${target_alias}"; \
+	 \
 	cd "$(HOST_SUBDIR)/intl" || exit 1; \
 	case $(srcdir) in \
 	  /* | [A-Za-z]:[\\/]*) topdir=$(srcdir) ;; \
@@ -17434,11 +17578,13 @@ configure-intl:
 		sed -e 's,\./,,g' -e 's,[^/]*/,../,g' `$(srcdir) ;; \
 	esac; \
 	module_srcdir=intl; \
+	srcdiroption="--srcdir=$${topdir}/intl"; \
+	libsrcdir="$$s/intl"; \
 	$(SHELL) \
 	  $$s/$$module_srcdir/configure \
 	  --srcdir=$${topdir}/$$module_srcdir \
 	  $(HOST_CONFIGARGS) --build=${build_alias} --host=${host_alias} \
-	  --target=${target_alias}  \
+	  --target=$${this_target} $${srcdiroption}  \
 	  || exit 1
 @endif intl
 
@@ -18302,6 +18448,9 @@ configure-tcl:
 	$(SHELL) $(srcdir)/mkinstalldirs $(HOST_SUBDIR)/tcl ; \
 	$(HOST_EXPORTS)  \
 	echo Configuring in $(HOST_SUBDIR)/tcl; \
+	 \
+	this_target="${target_alias}"; \
+	 \
 	cd "$(HOST_SUBDIR)/tcl" || exit 1; \
 	case $(srcdir) in \
 	  /* | [A-Za-z]:[\\/]*) topdir=$(srcdir) ;; \
@@ -18309,11 +18458,13 @@ configure-tcl:
 		sed -e 's,\./,,g' -e 's,[^/]*/,../,g' `$(srcdir) ;; \
 	esac; \
 	module_srcdir=tcl; \
+	srcdiroption="--srcdir=$${topdir}/tcl"; \
+	libsrcdir="$$s/tcl"; \
 	$(SHELL) \
 	  $$s/$$module_srcdir/configure \
 	  --srcdir=$${topdir}/$$module_srcdir \
 	  $(HOST_CONFIGARGS) --build=${build_alias} --host=${host_alias} \
-	  --target=${target_alias}  \
+	  --target=$${this_target} $${srcdiroption}  \
 	  || exit 1
 @endif tcl
 
@@ -18728,6 +18879,9 @@ configure-itcl:
 	$(SHELL) $(srcdir)/mkinstalldirs $(HOST_SUBDIR)/itcl ; \
 	$(HOST_EXPORTS)  \
 	echo Configuring in $(HOST_SUBDIR)/itcl; \
+	 \
+	this_target="${target_alias}"; \
+	 \
 	cd "$(HOST_SUBDIR)/itcl" || exit 1; \
 	case $(srcdir) in \
 	  /* | [A-Za-z]:[\\/]*) topdir=$(srcdir) ;; \
@@ -18735,11 +18889,13 @@ configure-itcl:
 		sed -e 's,\./,,g' -e 's,[^/]*/,../,g' `$(srcdir) ;; \
 	esac; \
 	module_srcdir=itcl; \
+	srcdiroption="--srcdir=$${topdir}/itcl"; \
+	libsrcdir="$$s/itcl"; \
 	$(SHELL) \
 	  $$s/$$module_srcdir/configure \
 	  --srcdir=$${topdir}/$$module_srcdir \
 	  $(HOST_CONFIGARGS) --build=${build_alias} --host=${host_alias} \
-	  --target=${target_alias}  \
+	  --target=$${this_target} $${srcdiroption}  \
 	  || exit 1
 @endif itcl
 
@@ -19168,6 +19324,9 @@ configure-ld:
 	$(SHELL) $(srcdir)/mkinstalldirs $(HOST_SUBDIR)/ld ; \
 	$(HOST_EXPORTS)  \
 	echo Configuring in $(HOST_SUBDIR)/ld; \
+	 \
+	this_target="${target_alias}"; \
+	 \
 	cd "$(HOST_SUBDIR)/ld" || exit 1; \
 	case $(srcdir) in \
 	  /* | [A-Za-z]:[\\/]*) topdir=$(srcdir) ;; \
@@ -19175,11 +19334,13 @@ configure-ld:
 		sed -e 's,\./,,g' -e 's,[^/]*/,../,g' `$(srcdir) ;; \
 	esac; \
 	module_srcdir=ld; \
+	srcdiroption="--srcdir=$${topdir}/ld"; \
+	libsrcdir="$$s/ld"; \
 	$(SHELL) \
 	  $$s/$$module_srcdir/configure \
 	  --srcdir=$${topdir}/$$module_srcdir \
 	  $(HOST_CONFIGARGS) --build=${build_alias} --host=${host_alias} \
-	  --target=${target_alias}  \
+	  --target=$${this_target} $${srcdiroption}  \
 	  || exit 1
 @endif ld
 
@@ -20042,6 +20203,9 @@ configure-libbacktrace:
 	$(SHELL) $(srcdir)/mkinstalldirs $(HOST_SUBDIR)/libbacktrace ; \
 	$(HOST_EXPORTS)  \
 	echo Configuring in $(HOST_SUBDIR)/libbacktrace; \
+	 \
+	this_target="${target_alias}"; \
+	 \
 	cd "$(HOST_SUBDIR)/libbacktrace" || exit 1; \
 	case $(srcdir) in \
 	  /* | [A-Za-z]:[\\/]*) topdir=$(srcdir) ;; \
@@ -20049,11 +20213,13 @@ configure-libbacktrace:
 		sed -e 's,\./,,g' -e 's,[^/]*/,../,g' `$(srcdir) ;; \
 	esac; \
 	module_srcdir=libbacktrace; \
+	srcdiroption="--srcdir=$${topdir}/libbacktrace"; \
+	libsrcdir="$$s/libbacktrace"; \
 	$(SHELL) \
 	  $$s/$$module_srcdir/configure \
 	  --srcdir=$${topdir}/$$module_srcdir \
 	  $(HOST_CONFIGARGS) --build=${build_alias} --host=${host_alias} \
-	  --target=${target_alias}  \
+	  --target=$${this_target} $${srcdiroption}  \
 	  || exit 1
 @endif libbacktrace
 
@@ -20916,6 +21082,9 @@ configure-libcpp:
 	$(SHELL) $(srcdir)/mkinstalldirs $(HOST_SUBDIR)/libcpp ; \
 	$(HOST_EXPORTS)  \
 	echo Configuring in $(HOST_SUBDIR)/libcpp; \
+	 \
+	this_target="${target_alias}"; \
+	 \
 	cd "$(HOST_SUBDIR)/libcpp" || exit 1; \
 	case $(srcdir) in \
 	  /* | [A-Za-z]:[\\/]*) topdir=$(srcdir) ;; \
@@ -20923,11 +21092,13 @@ configure-libcpp:
 		sed -e 's,\./,,g' -e 's,[^/]*/,../,g' `$(srcdir) ;; \
 	esac; \
 	module_srcdir=libcpp; \
+	srcdiroption="--srcdir=$${topdir}/libcpp"; \
+	libsrcdir="$$s/libcpp"; \
 	$(SHELL) \
 	  $$s/$$module_srcdir/configure \
 	  --srcdir=$${topdir}/$$module_srcdir \
 	  $(HOST_CONFIGARGS) --build=${build_alias} --host=${host_alias} \
-	  --target=${target_alias}  \
+	  --target=$${this_target} $${srcdiroption}  \
 	  || exit 1
 @endif libcpp
 
@@ -21790,6 +21961,9 @@ configure-libdecnumber:
 	$(SHELL) $(srcdir)/mkinstalldirs $(HOST_SUBDIR)/libdecnumber ; \
 	$(HOST_EXPORTS)  \
 	echo Configuring in $(HOST_SUBDIR)/libdecnumber; \
+	 \
+	this_target="${target_alias}"; \
+	 \
 	cd "$(HOST_SUBDIR)/libdecnumber" || exit 1; \
 	case $(srcdir) in \
 	  /* | [A-Za-z]:[\\/]*) topdir=$(srcdir) ;; \
@@ -21797,11 +21971,13 @@ configure-libdecnumber:
 		sed -e 's,\./,,g' -e 's,[^/]*/,../,g' `$(srcdir) ;; \
 	esac; \
 	module_srcdir=libdecnumber; \
+	srcdiroption="--srcdir=$${topdir}/libdecnumber"; \
+	libsrcdir="$$s/libdecnumber"; \
 	$(SHELL) \
 	  $$s/$$module_srcdir/configure \
 	  --srcdir=$${topdir}/$$module_srcdir \
 	  $(HOST_CONFIGARGS) --build=${build_alias} --host=${host_alias} \
-	  --target=${target_alias}  \
+	  --target=$${this_target} $${srcdiroption}  \
 	  || exit 1
 @endif libdecnumber
 
@@ -22665,6 +22841,9 @@ configure-libgui:
 	$(SHELL) $(srcdir)/mkinstalldirs $(HOST_SUBDIR)/libgui ; \
 	$(HOST_EXPORTS)  \
 	echo Configuring in $(HOST_SUBDIR)/libgui; \
+	 \
+	this_target="${target_alias}"; \
+	 \
 	cd "$(HOST_SUBDIR)/libgui" || exit 1; \
 	case $(srcdir) in \
 	  /* | [A-Za-z]:[\\/]*) topdir=$(srcdir) ;; \
@@ -22672,11 +22851,13 @@ configure-libgui:
 		sed -e 's,\./,,g' -e 's,[^/]*/,../,g' `$(srcdir) ;; \
 	esac; \
 	module_srcdir=libgui; \
+	srcdiroption="--srcdir=$${topdir}/libgui"; \
+	libsrcdir="$$s/libgui"; \
 	$(SHELL) \
 	  $$s/$$module_srcdir/configure \
 	  --srcdir=$${topdir}/$$module_srcdir \
 	  $(HOST_CONFIGARGS) --build=${build_alias} --host=${host_alias} \
-	  --target=${target_alias}  \
+	  --target=$${this_target} $${srcdiroption}  \
 	  || exit 1
 @endif libgui
 
@@ -23105,6 +23286,9 @@ configure-libiberty:
 	$(SHELL) $(srcdir)/mkinstalldirs $(HOST_SUBDIR)/libiberty ; \
 	$(HOST_EXPORTS)  \
 	echo Configuring in $(HOST_SUBDIR)/libiberty; \
+	 \
+	this_target="${target_alias}"; \
+	 \
 	cd "$(HOST_SUBDIR)/libiberty" || exit 1; \
 	case $(srcdir) in \
 	  /* | [A-Za-z]:[\\/]*) topdir=$(srcdir) ;; \
@@ -23112,11 +23296,13 @@ configure-libiberty:
 		sed -e 's,\./,,g' -e 's,[^/]*/,../,g' `$(srcdir) ;; \
 	esac; \
 	module_srcdir=libiberty; \
+	srcdiroption="--srcdir=$${topdir}/libiberty"; \
+	libsrcdir="$$s/libiberty"; \
 	$(SHELL) \
 	  $$s/$$module_srcdir/configure \
 	  --srcdir=$${topdir}/$$module_srcdir \
 	  $(HOST_CONFIGARGS) --build=${build_alias} --host=${host_alias} \
-	  --target=${target_alias} @extra_host_libiberty_configure_flags@ \
+	  --target=$${this_target} $${srcdiroption} @extra_host_libiberty_configure_flags@ \
 	  || exit 1
 @endif libiberty
 
@@ -23985,6 +24171,9 @@ configure-libiberty-linker-plugin:
 	$(SHELL) $(srcdir)/mkinstalldirs $(HOST_SUBDIR)/libiberty-linker-plugin ; \
 	$(HOST_EXPORTS)  \
 	echo Configuring in $(HOST_SUBDIR)/libiberty-linker-plugin; \
+	 \
+	this_target="${target_alias}"; \
+	 \
 	cd "$(HOST_SUBDIR)/libiberty-linker-plugin" || exit 1; \
 	case $(srcdir) in \
 	  /* | [A-Za-z]:[\\/]*) topdir=$(srcdir) ;; \
@@ -23992,11 +24181,13 @@ configure-libiberty-linker-plugin:
 		sed -e 's,\./,,g' -e 's,[^/]*/,../,g' `$(srcdir) ;; \
 	esac; \
 	module_srcdir=libiberty; \
+	srcdiroption="--srcdir=$${topdir}/libiberty-linker-plugin"; \
+	libsrcdir="$$s/libiberty-linker-plugin"; \
 	$(SHELL) \
 	  $$s/$$module_srcdir/configure \
 	  --srcdir=$${topdir}/$$module_srcdir \
 	  $(HOST_CONFIGARGS) --build=${build_alias} --host=${host_alias} \
-	  --target=${target_alias} @extra_host_libiberty_configure_flags@ --disable-install-libiberty @extra_linker_plugin_flags@ @extra_linker_plugin_configure_flags@ \
+	  --target=$${this_target} $${srcdiroption} @extra_host_libiberty_configure_flags@ --disable-install-libiberty @extra_linker_plugin_flags@ @extra_linker_plugin_configure_flags@ \
 	  || exit 1
 @endif libiberty-linker-plugin
 
@@ -24866,6 +25057,9 @@ configure-libiconv:
 	$(SHELL) $(srcdir)/mkinstalldirs $(HOST_SUBDIR)/libiconv ; \
 	$(HOST_EXPORTS)  \
 	echo Configuring in $(HOST_SUBDIR)/libiconv; \
+	 \
+	this_target="${target_alias}"; \
+	 \
 	cd "$(HOST_SUBDIR)/libiconv" || exit 1; \
 	case $(srcdir) in \
 	  /* | [A-Za-z]:[\\/]*) topdir=$(srcdir) ;; \
@@ -24873,11 +25067,13 @@ configure-libiconv:
 		sed -e 's,\./,,g' -e 's,[^/]*/,../,g' `$(srcdir) ;; \
 	esac; \
 	module_srcdir=libiconv; \
+	srcdiroption="--srcdir=$${topdir}/libiconv"; \
+	libsrcdir="$$s/libiconv"; \
 	$(SHELL) \
 	  $$s/$$module_srcdir/configure \
 	  --srcdir=$${topdir}/$$module_srcdir \
 	  $(HOST_CONFIGARGS) --build=${build_alias} --host=${host_alias} \
-	  --target=${target_alias} --disable-shared \
+	  --target=$${this_target} $${srcdiroption} --disable-shared \
 	  || exit 1
 @endif libiconv
 
@@ -25244,6 +25440,9 @@ configure-m4:
 	$(SHELL) $(srcdir)/mkinstalldirs $(HOST_SUBDIR)/m4 ; \
 	$(HOST_EXPORTS)  \
 	echo Configuring in $(HOST_SUBDIR)/m4; \
+	 \
+	this_target="${target_alias}"; \
+	 \
 	cd "$(HOST_SUBDIR)/m4" || exit 1; \
 	case $(srcdir) in \
 	  /* | [A-Za-z]:[\\/]*) topdir=$(srcdir) ;; \
@@ -25251,11 +25450,13 @@ configure-m4:
 		sed -e 's,\./,,g' -e 's,[^/]*/,../,g' `$(srcdir) ;; \
 	esac; \
 	module_srcdir=m4; \
+	srcdiroption="--srcdir=$${topdir}/m4"; \
+	libsrcdir="$$s/m4"; \
 	$(SHELL) \
 	  $$s/$$module_srcdir/configure \
 	  --srcdir=$${topdir}/$$module_srcdir \
 	  $(HOST_CONFIGARGS) --build=${build_alias} --host=${host_alias} \
-	  --target=${target_alias}  \
+	  --target=$${this_target} $${srcdiroption}  \
 	  || exit 1
 @endif m4
 
@@ -25685,6 +25886,9 @@ configure-readline:
 	$(SHELL) $(srcdir)/mkinstalldirs $(HOST_SUBDIR)/readline ; \
 	$(HOST_EXPORTS)  \
 	echo Configuring in $(HOST_SUBDIR)/readline; \
+	 \
+	this_target="${target_alias}"; \
+	 \
 	cd "$(HOST_SUBDIR)/readline" || exit 1; \
 	case $(srcdir) in \
 	  /* | [A-Za-z]:[\\/]*) topdir=$(srcdir) ;; \
@@ -25692,11 +25896,13 @@ configure-readline:
 		sed -e 's,\./,,g' -e 's,[^/]*/,../,g' `$(srcdir) ;; \
 	esac; \
 	module_srcdir=readline; \
+	srcdiroption="--srcdir=$${topdir}/readline"; \
+	libsrcdir="$$s/readline"; \
 	$(SHELL) \
 	  $$s/$$module_srcdir/configure \
 	  --srcdir=$${topdir}/$$module_srcdir \
 	  $(HOST_CONFIGARGS) --build=${build_alias} --host=${host_alias} \
-	  --target=${target_alias}  \
+	  --target=$${this_target} $${srcdiroption}  \
 	  || exit 1
 @endif readline
 
@@ -26126,6 +26332,9 @@ configure-sid:
 	$(SHELL) $(srcdir)/mkinstalldirs $(HOST_SUBDIR)/sid ; \
 	$(HOST_EXPORTS)  \
 	echo Configuring in $(HOST_SUBDIR)/sid; \
+	 \
+	this_target="${target_alias}"; \
+	 \
 	cd "$(HOST_SUBDIR)/sid" || exit 1; \
 	case $(srcdir) in \
 	  /* | [A-Za-z]:[\\/]*) topdir=$(srcdir) ;; \
@@ -26133,11 +26342,13 @@ configure-sid:
 		sed -e 's,\./,,g' -e 's,[^/]*/,../,g' `$(srcdir) ;; \
 	esac; \
 	module_srcdir=sid; \
+	srcdiroption="--srcdir=$${topdir}/sid"; \
+	libsrcdir="$$s/sid"; \
 	$(SHELL) \
 	  $$s/$$module_srcdir/configure \
 	  --srcdir=$${topdir}/$$module_srcdir \
 	  $(HOST_CONFIGARGS) --build=${build_alias} --host=${host_alias} \
-	  --target=${target_alias}  \
+	  --target=$${this_target} $${srcdiroption}  \
 	  || exit 1
 @endif sid
 
@@ -26567,6 +26778,9 @@ configure-sim:
 	$(SHELL) $(srcdir)/mkinstalldirs $(HOST_SUBDIR)/sim ; \
 	$(HOST_EXPORTS)  \
 	echo Configuring in $(HOST_SUBDIR)/sim; \
+	 \
+	this_target="${target_alias}"; \
+	 \
 	cd "$(HOST_SUBDIR)/sim" || exit 1; \
 	case $(srcdir) in \
 	  /* | [A-Za-z]:[\\/]*) topdir=$(srcdir) ;; \
@@ -26574,11 +26788,13 @@ configure-sim:
 		sed -e 's,\./,,g' -e 's,[^/]*/,../,g' `$(srcdir) ;; \
 	esac; \
 	module_srcdir=sim; \
+	srcdiroption="--srcdir=$${topdir}/sim"; \
+	libsrcdir="$$s/sim"; \
 	$(SHELL) \
 	  $$s/$$module_srcdir/configure \
 	  --srcdir=$${topdir}/$$module_srcdir \
 	  $(HOST_CONFIGARGS) --build=${build_alias} --host=${host_alias} \
-	  --target=${target_alias}  \
+	  --target=$${this_target} $${srcdiroption}  \
 	  || exit 1
 @endif sim
 
@@ -27008,6 +27224,9 @@ configure-texinfo:
 	$(SHELL) $(srcdir)/mkinstalldirs $(HOST_SUBDIR)/texinfo ; \
 	$(HOST_EXPORTS)  \
 	echo Configuring in $(HOST_SUBDIR)/texinfo; \
+	 \
+	this_target="${target_alias}"; \
+	 \
 	cd "$(HOST_SUBDIR)/texinfo" || exit 1; \
 	case $(srcdir) in \
 	  /* | [A-Za-z]:[\\/]*) topdir=$(srcdir) ;; \
@@ -27015,11 +27234,13 @@ configure-texinfo:
 		sed -e 's,\./,,g' -e 's,[^/]*/,../,g' `$(srcdir) ;; \
 	esac; \
 	module_srcdir=texinfo; \
+	srcdiroption="--srcdir=$${topdir}/texinfo"; \
+	libsrcdir="$$s/texinfo"; \
 	$(SHELL) \
 	  $$s/$$module_srcdir/configure \
 	  --srcdir=$${topdir}/$$module_srcdir \
 	  $(HOST_CONFIGARGS) --build=${build_alias} --host=${host_alias} \
-	  --target=${target_alias}  \
+	  --target=$${this_target} $${srcdiroption}  \
 	  || exit 1
 @endif texinfo
 
@@ -27436,6 +27657,9 @@ configure-zlib:
 	$(SHELL) $(srcdir)/mkinstalldirs $(HOST_SUBDIR)/zlib ; \
 	$(HOST_EXPORTS)  \
 	echo Configuring in $(HOST_SUBDIR)/zlib; \
+	 \
+	this_target="${target_alias}"; \
+	 \
 	cd "$(HOST_SUBDIR)/zlib" || exit 1; \
 	case $(srcdir) in \
 	  /* | [A-Za-z]:[\\/]*) topdir=$(srcdir) ;; \
@@ -27443,11 +27667,13 @@ configure-zlib:
 		sed -e 's,\./,,g' -e 's,[^/]*/,../,g' `$(srcdir) ;; \
 	esac; \
 	module_srcdir=zlib; \
+	srcdiroption="--srcdir=$${topdir}/zlib"; \
+	libsrcdir="$$s/zlib"; \
 	$(SHELL) \
 	  $$s/$$module_srcdir/configure \
 	  --srcdir=$${topdir}/$$module_srcdir \
 	  $(HOST_CONFIGARGS) --build=${build_alias} --host=${host_alias} \
-	  --target=${target_alias}  \
+	  --target=$${this_target} $${srcdiroption}  \
 	  || exit 1
 @endif zlib
 
@@ -28293,6 +28519,9 @@ configure-gdb:
 	$(SHELL) $(srcdir)/mkinstalldirs $(HOST_SUBDIR)/gdb ; \
 	$(HOST_EXPORTS)  \
 	echo Configuring in $(HOST_SUBDIR)/gdb; \
+	 \
+	this_target="${target_alias}"; \
+	 \
 	cd "$(HOST_SUBDIR)/gdb" || exit 1; \
 	case $(srcdir) in \
 	  /* | [A-Za-z]:[\\/]*) topdir=$(srcdir) ;; \
@@ -28300,11 +28529,13 @@ configure-gdb:
 		sed -e 's,\./,,g' -e 's,[^/]*/,../,g' `$(srcdir) ;; \
 	esac; \
 	module_srcdir=gdb; \
+	srcdiroption="--srcdir=$${topdir}/gdb"; \
+	libsrcdir="$$s/gdb"; \
 	$(SHELL) \
 	  $$s/$$module_srcdir/configure \
 	  --srcdir=$${topdir}/$$module_srcdir \
 	  $(HOST_CONFIGARGS) --build=${build_alias} --host=${host_alias} \
-	  --target=${target_alias}  \
+	  --target=$${this_target} $${srcdiroption}  \
 	  || exit 1
 @endif gdb
 
@@ -28734,6 +28965,9 @@ configure-expect:
 	$(SHELL) $(srcdir)/mkinstalldirs $(HOST_SUBDIR)/expect ; \
 	$(HOST_EXPORTS)  \
 	echo Configuring in $(HOST_SUBDIR)/expect; \
+	 \
+	this_target="${target_alias}"; \
+	 \
 	cd "$(HOST_SUBDIR)/expect" || exit 1; \
 	case $(srcdir) in \
 	  /* | [A-Za-z]:[\\/]*) topdir=$(srcdir) ;; \
@@ -28741,11 +28975,13 @@ configure-expect:
 		sed -e 's,\./,,g' -e 's,[^/]*/,../,g' `$(srcdir) ;; \
 	esac; \
 	module_srcdir=expect; \
+	srcdiroption="--srcdir=$${topdir}/expect"; \
+	libsrcdir="$$s/expect"; \
 	$(SHELL) \
 	  $$s/$$module_srcdir/configure \
 	  --srcdir=$${topdir}/$$module_srcdir \
 	  $(HOST_CONFIGARGS) --build=${build_alias} --host=${host_alias} \
-	  --target=${target_alias}  \
+	  --target=$${this_target} $${srcdiroption}  \
 	  || exit 1
 @endif expect
 
@@ -29175,6 +29411,9 @@ configure-guile:
 	$(SHELL) $(srcdir)/mkinstalldirs $(HOST_SUBDIR)/guile ; \
 	$(HOST_EXPORTS)  \
 	echo Configuring in $(HOST_SUBDIR)/guile; \
+	 \
+	this_target="${target_alias}"; \
+	 \
 	cd "$(HOST_SUBDIR)/guile" || exit 1; \
 	case $(srcdir) in \
 	  /* | [A-Za-z]:[\\/]*) topdir=$(srcdir) ;; \
@@ -29182,11 +29421,13 @@ configure-guile:
 		sed -e 's,\./,,g' -e 's,[^/]*/,../,g' `$(srcdir) ;; \
 	esac; \
 	module_srcdir=guile; \
+	srcdiroption="--srcdir=$${topdir}/guile"; \
+	libsrcdir="$$s/guile"; \
 	$(SHELL) \
 	  $$s/$$module_srcdir/configure \
 	  --srcdir=$${topdir}/$$module_srcdir \
 	  $(HOST_CONFIGARGS) --build=${build_alias} --host=${host_alias} \
-	  --target=${target_alias}  \
+	  --target=$${this_target} $${srcdiroption}  \
 	  || exit 1
 @endif guile
 
@@ -29616,6 +29857,9 @@ configure-tk:
 	$(SHELL) $(srcdir)/mkinstalldirs $(HOST_SUBDIR)/tk ; \
 	$(HOST_EXPORTS)  \
 	echo Configuring in $(HOST_SUBDIR)/tk; \
+	 \
+	this_target="${target_alias}"; \
+	 \
 	cd "$(HOST_SUBDIR)/tk" || exit 1; \
 	case $(srcdir) in \
 	  /* | [A-Za-z]:[\\/]*) topdir=$(srcdir) ;; \
@@ -29623,11 +29867,13 @@ configure-tk:
 		sed -e 's,\./,,g' -e 's,[^/]*/,../,g' `$(srcdir) ;; \
 	esac; \
 	module_srcdir=tk; \
+	srcdiroption="--srcdir=$${topdir}/tk"; \
+	libsrcdir="$$s/tk"; \
 	$(SHELL) \
 	  $$s/$$module_srcdir/configure \
 	  --srcdir=$${topdir}/$$module_srcdir \
 	  $(HOST_CONFIGARGS) --build=${build_alias} --host=${host_alias} \
-	  --target=${target_alias}  \
+	  --target=$${this_target} $${srcdiroption}  \
 	  || exit 1
 @endif tk
 
@@ -30057,6 +30303,9 @@ configure-libtermcap:
 	$(SHELL) $(srcdir)/mkinstalldirs $(HOST_SUBDIR)/libtermcap ; \
 	$(HOST_EXPORTS)  \
 	echo Configuring in $(HOST_SUBDIR)/libtermcap; \
+	 \
+	this_target="${target_alias}"; \
+	 \
 	cd "$(HOST_SUBDIR)/libtermcap" || exit 1; \
 	case $(srcdir) in \
 	  /* | [A-Za-z]:[\\/]*) topdir=$(srcdir) ;; \
@@ -30064,11 +30313,13 @@ configure-libtermcap:
 		sed -e 's,\./,,g' -e 's,[^/]*/,../,g' `$(srcdir) ;; \
 	esac; \
 	module_srcdir=libtermcap; \
+	srcdiroption="--srcdir=$${topdir}/libtermcap"; \
+	libsrcdir="$$s/libtermcap"; \
 	$(SHELL) \
 	  $$s/$$module_srcdir/configure \
 	  --srcdir=$${topdir}/$$module_srcdir \
 	  $(HOST_CONFIGARGS) --build=${build_alias} --host=${host_alias} \
-	  --target=${target_alias}  \
+	  --target=$${this_target} $${srcdiroption}  \
 	  || exit 1
 @endif libtermcap
 
@@ -30432,6 +30683,9 @@ configure-utils:
 	$(SHELL) $(srcdir)/mkinstalldirs $(HOST_SUBDIR)/utils ; \
 	$(HOST_EXPORTS)  \
 	echo Configuring in $(HOST_SUBDIR)/utils; \
+	 \
+	this_target="${target_alias}"; \
+	 \
 	cd "$(HOST_SUBDIR)/utils" || exit 1; \
 	case $(srcdir) in \
 	  /* | [A-Za-z]:[\\/]*) topdir=$(srcdir) ;; \
@@ -30439,11 +30693,13 @@ configure-utils:
 		sed -e 's,\./,,g' -e 's,[^/]*/,../,g' `$(srcdir) ;; \
 	esac; \
 	module_srcdir=utils; \
+	srcdiroption="--srcdir=$${topdir}/utils"; \
+	libsrcdir="$$s/utils"; \
 	$(SHELL) \
 	  $$s/$$module_srcdir/configure \
 	  --srcdir=$${topdir}/$$module_srcdir \
 	  $(HOST_CONFIGARGS) --build=${build_alias} --host=${host_alias} \
-	  --target=${target_alias}  \
+	  --target=$${this_target} $${srcdiroption}  \
 	  || exit 1
 @endif utils
 
@@ -30867,6 +31123,9 @@ configure-gnattools:
 	$(SHELL) $(srcdir)/mkinstalldirs $(HOST_SUBDIR)/gnattools ; \
 	$(HOST_EXPORTS)  \
 	echo Configuring in $(HOST_SUBDIR)/gnattools; \
+	 \
+	this_target="${target_alias}"; \
+	 \
 	cd "$(HOST_SUBDIR)/gnattools" || exit 1; \
 	case $(srcdir) in \
 	  /* | [A-Za-z]:[\\/]*) topdir=$(srcdir) ;; \
@@ -30874,11 +31133,13 @@ configure-gnattools:
 		sed -e 's,\./,,g' -e 's,[^/]*/,../,g' `$(srcdir) ;; \
 	esac; \
 	module_srcdir=gnattools; \
+	srcdiroption="--srcdir=$${topdir}/gnattools"; \
+	libsrcdir="$$s/gnattools"; \
 	$(SHELL) \
 	  $$s/$$module_srcdir/configure \
 	  --srcdir=$${topdir}/$$module_srcdir \
 	  $(HOST_CONFIGARGS) --build=${build_alias} --host=${host_alias} \
-	  --target=${target_alias}  \
+	  --target=$${this_target} $${srcdiroption}  \
 	  || exit 1
 @endif gnattools
 
@@ -31307,6 +31568,9 @@ configure-lto-plugin:
 	$(SHELL) $(srcdir)/mkinstalldirs $(HOST_SUBDIR)/lto-plugin ; \
 	$(HOST_EXPORTS)  \
 	echo Configuring in $(HOST_SUBDIR)/lto-plugin; \
+	 \
+	this_target="${target_alias}"; \
+	 \
 	cd "$(HOST_SUBDIR)/lto-plugin" || exit 1; \
 	case $(srcdir) in \
 	  /* | [A-Za-z]:[\\/]*) topdir=$(srcdir) ;; \
@@ -31314,11 +31578,13 @@ configure-lto-plugin:
 		sed -e 's,\./,,g' -e 's,[^/]*/,../,g' `$(srcdir) ;; \
 	esac; \
 	module_srcdir=lto-plugin; \
+	srcdiroption="--srcdir=$${topdir}/lto-plugin"; \
+	libsrcdir="$$s/lto-plugin"; \
 	$(SHELL) \
 	  $$s/$$module_srcdir/configure \
 	  --srcdir=$${topdir}/$$module_srcdir \
 	  $(HOST_CONFIGARGS) --build=${build_alias} --host=${host_alias} \
-	  --target=${target_alias} --enable-shared @extra_linker_plugin_flags@ @extra_linker_plugin_configure_flags@ \
+	  --target=$${this_target} $${srcdiroption} --enable-shared @extra_linker_plugin_flags@ @extra_linker_plugin_configure_flags@ \
 	  || exit 1
 @endif lto-plugin
 
@@ -32207,6 +32473,9 @@ configure-target-libstdc++-v3:
 	$(SHELL) $(srcdir)/mkinstalldirs $(TARGET_SUBDIR)/libstdc++-v3 ; \
 	$(RAW_CXX_TARGET_EXPORTS)  \
 	echo Configuring in $(TARGET_SUBDIR)/libstdc++-v3; \
+	 \
+	this_target="${target_alias}"; \
+	 \
 	cd "$(TARGET_SUBDIR)/libstdc++-v3" || exit 1; \
 	case $(srcdir) in \
 	  /* | [A-Za-z]:[\\/]*) topdir=$(srcdir) ;; \
@@ -32214,12 +32483,14 @@ configure-target-libstdc++-v3:
 		sed -e 's,\./,,g' -e 's,[^/]*/,../,g' `$(srcdir) ;; \
 	esac; \
 	module_srcdir=libstdc++-v3; \
+	srcdiroption="--srcdir=$${topdir}/libstdc++-v3"; \
+	libsrcdir="$$s/libstdc++-v3"; \
 	rm -f no-such-file || : ; \
 	CONFIG_SITE=no-such-file $(SHELL) \
 	  $$s/$$module_srcdir/configure \
 	  --srcdir=$${topdir}/$$module_srcdir \
 	  $(TARGET_CONFIGARGS) --build=${build_alias} --host=${target_alias} \
-	  --target=${target_alias}  \
+	  --target=$${this_target} $${srcdiroption}  \
 	  || exit 1
 @endif target-libstdc++-v3
 
@@ -33183,6 +33454,9 @@ configure-target-libsanitizer:
 	$(SHELL) $(srcdir)/mkinstalldirs $(TARGET_SUBDIR)/libsanitizer ; \
 	$(RAW_CXX_TARGET_EXPORTS)  \
 	echo Configuring in $(TARGET_SUBDIR)/libsanitizer; \
+	 \
+	this_target="${target_alias}"; \
+	 \
 	cd "$(TARGET_SUBDIR)/libsanitizer" || exit 1; \
 	case $(srcdir) in \
 	  /* | [A-Za-z]:[\\/]*) topdir=$(srcdir) ;; \
@@ -33190,12 +33464,14 @@ configure-target-libsanitizer:
 		sed -e 's,\./,,g' -e 's,[^/]*/,../,g' `$(srcdir) ;; \
 	esac; \
 	module_srcdir=libsanitizer; \
+	srcdiroption="--srcdir=$${topdir}/libsanitizer"; \
+	libsrcdir="$$s/libsanitizer"; \
 	rm -f no-such-file || : ; \
 	CONFIG_SITE=no-such-file $(SHELL) \
 	  $$s/$$module_srcdir/configure \
 	  --srcdir=$${topdir}/$$module_srcdir \
 	  $(TARGET_CONFIGARGS) --build=${build_alias} --host=${target_alias} \
-	  --target=${target_alias}  \
+	  --target=$${this_target} $${srcdiroption}  \
 	  || exit 1
 @endif target-libsanitizer
 
@@ -34159,6 +34435,9 @@ configure-target-libvtv:
 	$(SHELL) $(srcdir)/mkinstalldirs $(TARGET_SUBDIR)/libvtv ; \
 	$(RAW_CXX_TARGET_EXPORTS)  \
 	echo Configuring in $(TARGET_SUBDIR)/libvtv; \
+	 \
+	this_target="${target_alias}"; \
+	 \
 	cd "$(TARGET_SUBDIR)/libvtv" || exit 1; \
 	case $(srcdir) in \
 	  /* | [A-Za-z]:[\\/]*) topdir=$(srcdir) ;; \
@@ -34166,12 +34445,14 @@ configure-target-libvtv:
 		sed -e 's,\./,,g' -e 's,[^/]*/,../,g' `$(srcdir) ;; \
 	esac; \
 	module_srcdir=libvtv; \
+	srcdiroption="--srcdir=$${topdir}/libvtv"; \
+	libsrcdir="$$s/libvtv"; \
 	rm -f no-such-file || : ; \
 	CONFIG_SITE=no-such-file $(SHELL) \
 	  $$s/$$module_srcdir/configure \
 	  --srcdir=$${topdir}/$$module_srcdir \
 	  $(TARGET_CONFIGARGS) --build=${build_alias} --host=${target_alias} \
-	  --target=${target_alias}  \
+	  --target=$${this_target} $${srcdiroption}  \
 	  || exit 1
 @endif target-libvtv
 
@@ -35136,6 +35417,9 @@ configure-target-libcilkrts:
 	$(SHELL) $(srcdir)/mkinstalldirs $(TARGET_SUBDIR)/libcilkrts ; \
 	$(NORMAL_TARGET_EXPORTS)  \
 	echo Configuring in $(TARGET_SUBDIR)/libcilkrts; \
+	 \
+	this_target="${target_alias}"; \
+	 \
 	cd "$(TARGET_SUBDIR)/libcilkrts" || exit 1; \
 	case $(srcdir) in \
 	  /* | [A-Za-z]:[\\/]*) topdir=$(srcdir) ;; \
@@ -35143,12 +35427,14 @@ configure-target-libcilkrts:
 		sed -e 's,\./,,g' -e 's,[^/]*/,../,g' `$(srcdir) ;; \
 	esac; \
 	module_srcdir=libcilkrts; \
+	srcdiroption="--srcdir=$${topdir}/libcilkrts"; \
+	libsrcdir="$$s/libcilkrts"; \
 	rm -f no-such-file || : ; \
 	CONFIG_SITE=no-such-file $(SHELL) \
 	  $$s/$$module_srcdir/configure \
 	  --srcdir=$${topdir}/$$module_srcdir \
 	  $(TARGET_CONFIGARGS) --build=${build_alias} --host=${target_alias} \
-	  --target=${target_alias}  \
+	  --target=$${this_target} $${srcdiroption}  \
 	  || exit 1
 @endif target-libcilkrts
 
@@ -35594,6 +35880,9 @@ configure-target-libssp:
 	$(SHELL) $(srcdir)/mkinstalldirs $(TARGET_SUBDIR)/libssp ; \
 	$(NORMAL_TARGET_EXPORTS)  \
 	echo Configuring in $(TARGET_SUBDIR)/libssp; \
+	 \
+	this_target="${target_alias}"; \
+	 \
 	cd "$(TARGET_SUBDIR)/libssp" || exit 1; \
 	case $(srcdir) in \
 	  /* | [A-Za-z]:[\\/]*) topdir=$(srcdir) ;; \
@@ -35601,12 +35890,14 @@ configure-target-libssp:
 		sed -e 's,\./,,g' -e 's,[^/]*/,../,g' `$(srcdir) ;; \
 	esac; \
 	module_srcdir=libssp; \
+	srcdiroption="--srcdir=$${topdir}/libssp"; \
+	libsrcdir="$$s/libssp"; \
 	rm -f no-such-file || : ; \
 	CONFIG_SITE=no-such-file $(SHELL) \
 	  $$s/$$module_srcdir/configure \
 	  --srcdir=$${topdir}/$$module_srcdir \
 	  $(TARGET_CONFIGARGS) --build=${build_alias} --host=${target_alias} \
-	  --target=${target_alias}  \
+	  --target=$${this_target} $${srcdiroption}  \
 	  || exit 1
 @endif target-libssp
 
@@ -36052,6 +36343,9 @@ configure-target-newlib:
 	$(SHELL) $(srcdir)/mkinstalldirs $(TARGET_SUBDIR)/newlib ; \
 	$(NORMAL_TARGET_EXPORTS)  \
 	echo Configuring in $(TARGET_SUBDIR)/newlib; \
+	 \
+	this_target="${target_alias}"; \
+	 \
 	cd "$(TARGET_SUBDIR)/newlib" || exit 1; \
 	case $(srcdir) in \
 	  /* | [A-Za-z]:[\\/]*) topdir=$(srcdir) ;; \
@@ -36059,12 +36353,14 @@ configure-target-newlib:
 		sed -e 's,\./,,g' -e 's,[^/]*/,../,g' `$(srcdir) ;; \
 	esac; \
 	module_srcdir=newlib; \
+	srcdiroption="--srcdir=$${topdir}/newlib"; \
+	libsrcdir="$$s/newlib"; \
 	rm -f no-such-file || : ; \
 	CONFIG_SITE=no-such-file $(SHELL) \
 	  $$s/$$module_srcdir/configure \
 	  --srcdir=$${topdir}/$$module_srcdir \
 	  $(TARGET_CONFIGARGS) --build=${build_alias} --host=${target_alias} \
-	  --target=${target_alias}  \
+	  --target=$${this_target} $${srcdiroption}  \
 	  || exit 1
 @endif target-newlib
 
@@ -36509,6 +36805,9 @@ configure-target-libgcc:
 	$(SHELL) $(srcdir)/mkinstalldirs $(TARGET_SUBDIR)/libgcc ; \
 	$(NORMAL_TARGET_EXPORTS)  \
 	echo Configuring in $(TARGET_SUBDIR)/libgcc; \
+	 \
+	this_target="${target_alias}"; \
+	 \
 	cd "$(TARGET_SUBDIR)/libgcc" || exit 1; \
 	case $(srcdir) in \
 	  /* | [A-Za-z]:[\\/]*) topdir=$(srcdir) ;; \
@@ -36516,12 +36815,14 @@ configure-target-libgcc:
 		sed -e 's,\./,,g' -e 's,[^/]*/,../,g' `$(srcdir) ;; \
 	esac; \
 	module_srcdir=libgcc; \
+	srcdiroption="--srcdir=$${topdir}/libgcc"; \
+	libsrcdir="$$s/libgcc"; \
 	rm -f no-such-file || : ; \
 	CONFIG_SITE=no-such-file $(SHELL) \
 	  $$s/$$module_srcdir/configure \
 	  --srcdir=$${topdir}/$$module_srcdir \
 	  $(TARGET_CONFIGARGS) --build=${build_alias} --host=${target_alias} \
-	  --target=${target_alias}  \
+	  --target=$${this_target} $${srcdiroption}  \
 	  || exit 1
 @endif target-libgcc
 
@@ -37481,6 +37782,9 @@ configure-target-libbacktrace:
 	$(SHELL) $(srcdir)/mkinstalldirs $(TARGET_SUBDIR)/libbacktrace ; \
 	$(NORMAL_TARGET_EXPORTS)  \
 	echo Configuring in $(TARGET_SUBDIR)/libbacktrace; \
+	 \
+	this_target="${target_alias}"; \
+	 \
 	cd "$(TARGET_SUBDIR)/libbacktrace" || exit 1; \
 	case $(srcdir) in \
 	  /* | [A-Za-z]:[\\/]*) topdir=$(srcdir) ;; \
@@ -37488,12 +37792,14 @@ configure-target-libbacktrace:
 		sed -e 's,\./,,g' -e 's,[^/]*/,../,g' `$(srcdir) ;; \
 	esac; \
 	module_srcdir=libbacktrace; \
+	srcdiroption="--srcdir=$${topdir}/libbacktrace"; \
+	libsrcdir="$$s/libbacktrace"; \
 	rm -f no-such-file || : ; \
 	CONFIG_SITE=no-such-file $(SHELL) \
 	  $$s/$$module_srcdir/configure \
 	  --srcdir=$${topdir}/$$module_srcdir \
 	  $(TARGET_CONFIGARGS) --build=${build_alias} --host=${target_alias} \
-	  --target=${target_alias}  \
+	  --target=$${this_target} $${srcdiroption}  \
 	  || exit 1
 @endif target-libbacktrace
 
@@ -37939,6 +38245,9 @@ configure-target-libquadmath:
 	$(SHELL) $(srcdir)/mkinstalldirs $(TARGET_SUBDIR)/libquadmath ; \
 	$(NORMAL_TARGET_EXPORTS)  \
 	echo Configuring in $(TARGET_SUBDIR)/libquadmath; \
+	 \
+	this_target="${target_alias}"; \
+	 \
 	cd "$(TARGET_SUBDIR)/libquadmath" || exit 1; \
 	case $(srcdir) in \
 	  /* | [A-Za-z]:[\\/]*) topdir=$(srcdir) ;; \
@@ -37946,12 +38255,14 @@ configure-target-libquadmath:
 		sed -e 's,\./,,g' -e 's,[^/]*/,../,g' `$(srcdir) ;; \
 	esac; \
 	module_srcdir=libquadmath; \
+	srcdiroption="--srcdir=$${topdir}/libquadmath"; \
+	libsrcdir="$$s/libquadmath"; \
 	rm -f no-such-file || : ; \
 	CONFIG_SITE=no-such-file $(SHELL) \
 	  $$s/$$module_srcdir/configure \
 	  --srcdir=$${topdir}/$$module_srcdir \
 	  $(TARGET_CONFIGARGS) --build=${build_alias} --host=${target_alias} \
-	  --target=${target_alias}  \
+	  --target=$${this_target} $${srcdiroption}  \
 	  || exit 1
 @endif target-libquadmath
 
@@ -38397,6 +38708,9 @@ configure-target-libgfortran:
 	$(SHELL) $(srcdir)/mkinstalldirs $(TARGET_SUBDIR)/libgfortran ; \
 	$(NORMAL_TARGET_EXPORTS)  \
 	echo Configuring in $(TARGET_SUBDIR)/libgfortran; \
+	 \
+	this_target="${target_alias}"; \
+	 \
 	cd "$(TARGET_SUBDIR)/libgfortran" || exit 1; \
 	case $(srcdir) in \
 	  /* | [A-Za-z]:[\\/]*) topdir=$(srcdir) ;; \
@@ -38404,12 +38718,14 @@ configure-target-libgfortran:
 		sed -e 's,\./,,g' -e 's,[^/]*/,../,g' `$(srcdir) ;; \
 	esac; \
 	module_srcdir=libgfortran; \
+	srcdiroption="--srcdir=$${topdir}/libgfortran"; \
+	libsrcdir="$$s/libgfortran"; \
 	rm -f no-such-file || : ; \
 	CONFIG_SITE=no-such-file $(SHELL) \
 	  $$s/$$module_srcdir/configure \
 	  --srcdir=$${topdir}/$$module_srcdir \
 	  $(TARGET_CONFIGARGS) --build=${build_alias} --host=${target_alias} \
-	  --target=${target_alias}  \
+	  --target=$${this_target} $${srcdiroption}  \
 	  || exit 1
 @endif target-libgfortran
 
@@ -38855,6 +39171,9 @@ configure-target-libobjc:
 	$(SHELL) $(srcdir)/mkinstalldirs $(TARGET_SUBDIR)/libobjc ; \
 	$(NORMAL_TARGET_EXPORTS)  \
 	echo Configuring in $(TARGET_SUBDIR)/libobjc; \
+	 \
+	this_target="${target_alias}"; \
+	 \
 	cd "$(TARGET_SUBDIR)/libobjc" || exit 1; \
 	case $(srcdir) in \
 	  /* | [A-Za-z]:[\\/]*) topdir=$(srcdir) ;; \
@@ -38862,12 +39181,14 @@ configure-target-libobjc:
 		sed -e 's,\./,,g' -e 's,[^/]*/,../,g' `$(srcdir) ;; \
 	esac; \
 	module_srcdir=libobjc; \
+	srcdiroption="--srcdir=$${topdir}/libobjc"; \
+	libsrcdir="$$s/libobjc"; \
 	rm -f no-such-file || : ; \
 	CONFIG_SITE=no-such-file $(SHELL) \
 	  $$s/$$module_srcdir/configure \
 	  --srcdir=$${topdir}/$$module_srcdir \
 	  $(TARGET_CONFIGARGS) --build=${build_alias} --host=${target_alias} \
-	  --target=${target_alias}  \
+	  --target=$${this_target} $${srcdiroption}  \
 	  || exit 1
 @endif target-libobjc
 
@@ -39313,6 +39634,9 @@ configure-target-libgo:
 	$(SHELL) $(srcdir)/mkinstalldirs $(TARGET_SUBDIR)/libgo ; \
 	$(NORMAL_TARGET_EXPORTS)  \
 	echo Configuring in $(TARGET_SUBDIR)/libgo; \
+	 \
+	this_target="${target_alias}"; \
+	 \
 	cd "$(TARGET_SUBDIR)/libgo" || exit 1; \
 	case $(srcdir) in \
 	  /* | [A-Za-z]:[\\/]*) topdir=$(srcdir) ;; \
@@ -39320,12 +39644,14 @@ configure-target-libgo:
 		sed -e 's,\./,,g' -e 's,[^/]*/,../,g' `$(srcdir) ;; \
 	esac; \
 	module_srcdir=libgo; \
+	srcdiroption="--srcdir=$${topdir}/libgo"; \
+	libsrcdir="$$s/libgo"; \
 	rm -f no-such-file || : ; \
 	CONFIG_SITE=no-such-file $(SHELL) \
 	  $$s/$$module_srcdir/configure \
 	  --srcdir=$${topdir}/$$module_srcdir \
 	  $(TARGET_CONFIGARGS) --build=${build_alias} --host=${target_alias} \
-	  --target=${target_alias}  \
+	  --target=$${this_target} $${srcdiroption}  \
 	  || exit 1
 @endif target-libgo
 
@@ -39771,6 +40097,9 @@ configure-target-libtermcap:
 	$(SHELL) $(srcdir)/mkinstalldirs $(TARGET_SUBDIR)/libtermcap ; \
 	$(NORMAL_TARGET_EXPORTS)  \
 	echo Configuring in $(TARGET_SUBDIR)/libtermcap; \
+	 \
+	this_target="${target_alias}"; \
+	 \
 	cd "$(TARGET_SUBDIR)/libtermcap" || exit 1; \
 	case $(srcdir) in \
 	  /* | [A-Za-z]:[\\/]*) topdir=$(srcdir) ;; \
@@ -39778,12 +40107,14 @@ configure-target-libtermcap:
 		sed -e 's,\./,,g' -e 's,[^/]*/,../,g' `$(srcdir) ;; \
 	esac; \
 	module_srcdir=libtermcap; \
+	srcdiroption="--srcdir=$${topdir}/libtermcap"; \
+	libsrcdir="$$s/libtermcap"; \
 	rm -f no-such-file || : ; \
 	CONFIG_SITE=no-such-file $(SHELL) \
 	  $$s/$$module_srcdir/configure \
 	  --srcdir=$${topdir}/$$module_srcdir \
 	  $(TARGET_CONFIGARGS) --build=${build_alias} --host=${target_alias} \
-	  --target=${target_alias}  \
+	  --target=$${this_target} $${srcdiroption}  \
 	  || exit 1
 @endif target-libtermcap
 
@@ -40164,6 +40495,9 @@ configure-target-winsup:
 	$(SHELL) $(srcdir)/mkinstalldirs $(TARGET_SUBDIR)/winsup ; \
 	$(NORMAL_TARGET_EXPORTS)  \
 	echo Configuring in $(TARGET_SUBDIR)/winsup; \
+	 \
+	this_target="${target_alias}"; \
+	 \
 	cd "$(TARGET_SUBDIR)/winsup" || exit 1; \
 	case $(srcdir) in \
 	  /* | [A-Za-z]:[\\/]*) topdir=$(srcdir) ;; \
@@ -40171,12 +40505,14 @@ configure-target-winsup:
 		sed -e 's,\./,,g' -e 's,[^/]*/,../,g' `$(srcdir) ;; \
 	esac; \
 	module_srcdir=winsup; \
+	srcdiroption="--srcdir=$${topdir}/winsup"; \
+	libsrcdir="$$s/winsup"; \
 	rm -f no-such-file || : ; \
 	CONFIG_SITE=no-such-file $(SHELL) \
 	  $$s/$$module_srcdir/configure \
 	  --srcdir=$${topdir}/$$module_srcdir \
 	  $(TARGET_CONFIGARGS) --build=${build_alias} --host=${target_alias} \
-	  --target=${target_alias}  \
+	  --target=$${this_target} $${srcdiroption}  \
 	  || exit 1
 @endif target-winsup
 
@@ -40622,6 +40958,9 @@ configure-target-libgloss:
 	$(SHELL) $(srcdir)/mkinstalldirs $(TARGET_SUBDIR)/libgloss ; \
 	$(NORMAL_TARGET_EXPORTS)  \
 	echo Configuring in $(TARGET_SUBDIR)/libgloss; \
+	 \
+	this_target="${target_alias}"; \
+	 \
 	cd "$(TARGET_SUBDIR)/libgloss" || exit 1; \
 	case $(srcdir) in \
 	  /* | [A-Za-z]:[\\/]*) topdir=$(srcdir) ;; \
@@ -40629,12 +40968,14 @@ configure-target-libgloss:
 		sed -e 's,\./,,g' -e 's,[^/]*/,../,g' `$(srcdir) ;; \
 	esac; \
 	module_srcdir=libgloss; \
+	srcdiroption="--srcdir=$${topdir}/libgloss"; \
+	libsrcdir="$$s/libgloss"; \
 	rm -f no-such-file || : ; \
 	CONFIG_SITE=no-such-file $(SHELL) \
 	  $$s/$$module_srcdir/configure \
 	  --srcdir=$${topdir}/$$module_srcdir \
 	  $(TARGET_CONFIGARGS) --build=${build_alias} --host=${target_alias} \
-	  --target=${target_alias}  \
+	  --target=$${this_target} $${srcdiroption}  \
 	  || exit 1
 @endif target-libgloss
 
@@ -41075,6 +41416,9 @@ configure-target-libffi:
 	$(SHELL) $(srcdir)/mkinstalldirs $(TARGET_SUBDIR)/libffi ; \
 	$(NORMAL_TARGET_EXPORTS)  \
 	echo Configuring in $(TARGET_SUBDIR)/libffi; \
+	 \
+	this_target="${target_alias}"; \
+	 \
 	cd "$(TARGET_SUBDIR)/libffi" || exit 1; \
 	case $(srcdir) in \
 	  /* | [A-Za-z]:[\\/]*) topdir=$(srcdir) ;; \
@@ -41082,12 +41426,14 @@ configure-target-libffi:
 		sed -e 's,\./,,g' -e 's,[^/]*/,../,g' `$(srcdir) ;; \
 	esac; \
 	module_srcdir=libffi; \
+	srcdiroption="--srcdir=$${topdir}/libffi"; \
+	libsrcdir="$$s/libffi"; \
 	rm -f no-such-file || : ; \
 	CONFIG_SITE=no-such-file $(SHELL) \
 	  $$s/$$module_srcdir/configure \
 	  --srcdir=$${topdir}/$$module_srcdir \
 	  $(TARGET_CONFIGARGS) --build=${build_alias} --host=${target_alias} \
-	  --target=${target_alias}  \
+	  --target=$${this_target} $${srcdiroption}  \
 	  || exit 1
 @endif target-libffi
 
@@ -41523,6 +41869,9 @@ configure-target-libjava:
 	$(SHELL) $(srcdir)/mkinstalldirs $(TARGET_SUBDIR)/libjava ; \
 	$(RAW_CXX_TARGET_EXPORTS)  \
 	echo Configuring in $(TARGET_SUBDIR)/libjava; \
+	 \
+	this_target="${target_alias}"; \
+	 \
 	cd "$(TARGET_SUBDIR)/libjava" || exit 1; \
 	case $(srcdir) in \
 	  /* | [A-Za-z]:[\\/]*) topdir=$(srcdir) ;; \
@@ -41530,12 +41879,14 @@ configure-target-libjava:
 		sed -e 's,\./,,g' -e 's,[^/]*/,../,g' `$(srcdir) ;; \
 	esac; \
 	module_srcdir=libjava; \
+	srcdiroption="--srcdir=$${topdir}/libjava"; \
+	libsrcdir="$$s/libjava"; \
 	rm -f no-such-file || : ; \
 	CONFIG_SITE=no-such-file $(SHELL) \
 	  $$s/$$module_srcdir/configure \
 	  --srcdir=$${topdir}/$$module_srcdir \
 	  $(TARGET_CONFIGARGS) --build=${build_alias} --host=${target_alias} \
-	  --target=${target_alias} $(EXTRA_CONFIGARGS_LIBJAVA) \
+	  --target=$${this_target} $${srcdiroption} $(EXTRA_CONFIGARGS_LIBJAVA) \
 	  || exit 1
 @endif target-libjava
 
@@ -41981,6 +42332,9 @@ configure-target-zlib:
 	$(SHELL) $(srcdir)/mkinstalldirs $(TARGET_SUBDIR)/zlib ; \
 	$(NORMAL_TARGET_EXPORTS)  \
 	echo Configuring in $(TARGET_SUBDIR)/zlib; \
+	 \
+	this_target="${target_alias}"; \
+	 \
 	cd "$(TARGET_SUBDIR)/zlib" || exit 1; \
 	case $(srcdir) in \
 	  /* | [A-Za-z]:[\\/]*) topdir=$(srcdir) ;; \
@@ -41988,12 +42342,14 @@ configure-target-zlib:
 		sed -e 's,\./,,g' -e 's,[^/]*/,../,g' `$(srcdir) ;; \
 	esac; \
 	module_srcdir=zlib; \
+	srcdiroption="--srcdir=$${topdir}/zlib"; \
+	libsrcdir="$$s/zlib"; \
 	rm -f no-such-file || : ; \
 	CONFIG_SITE=no-such-file $(SHELL) \
 	  $$s/$$module_srcdir/configure \
 	  --srcdir=$${topdir}/$$module_srcdir \
 	  $(TARGET_CONFIGARGS) --build=${build_alias} --host=${target_alias} \
-	  --target=${target_alias}  \
+	  --target=$${this_target} $${srcdiroption}  \
 	  || exit 1
 @endif target-zlib
 
@@ -42439,6 +42795,9 @@ configure-target-boehm-gc:
 	$(SHELL) $(srcdir)/mkinstalldirs $(TARGET_SUBDIR)/boehm-gc ; \
 	$(NORMAL_TARGET_EXPORTS)  \
 	echo Configuring in $(TARGET_SUBDIR)/boehm-gc; \
+	 \
+	this_target="${target_alias}"; \
+	 \
 	cd "$(TARGET_SUBDIR)/boehm-gc" || exit 1; \
 	case $(srcdir) in \
 	  /* | [A-Za-z]:[\\/]*) topdir=$(srcdir) ;; \
@@ -42446,12 +42805,14 @@ configure-target-boehm-gc:
 		sed -e 's,\./,,g' -e 's,[^/]*/,../,g' `$(srcdir) ;; \
 	esac; \
 	module_srcdir=boehm-gc; \
+	srcdiroption="--srcdir=$${topdir}/boehm-gc"; \
+	libsrcdir="$$s/boehm-gc"; \
 	rm -f no-such-file || : ; \
 	CONFIG_SITE=no-such-file $(SHELL) \
 	  $$s/$$module_srcdir/configure \
 	  --srcdir=$${topdir}/$$module_srcdir \
 	  $(TARGET_CONFIGARGS) --build=${build_alias} --host=${target_alias} \
-	  --target=${target_alias}  \
+	  --target=$${this_target} $${srcdiroption}  \
 	  || exit 1
 @endif target-boehm-gc
 
@@ -42897,6 +43258,9 @@ configure-target-rda:
 	$(SHELL) $(srcdir)/mkinstalldirs $(TARGET_SUBDIR)/rda ; \
 	$(NORMAL_TARGET_EXPORTS)  \
 	echo Configuring in $(TARGET_SUBDIR)/rda; \
+	 \
+	this_target="${target_alias}"; \
+	 \
 	cd "$(TARGET_SUBDIR)/rda" || exit 1; \
 	case $(srcdir) in \
 	  /* | [A-Za-z]:[\\/]*) topdir=$(srcdir) ;; \
@@ -42904,12 +43268,14 @@ configure-target-rda:
 		sed -e 's,\./,,g' -e 's,[^/]*/,../,g' `$(srcdir) ;; \
 	esac; \
 	module_srcdir=rda; \
+	srcdiroption="--srcdir=$${topdir}/rda"; \
+	libsrcdir="$$s/rda"; \
 	rm -f no-such-file || : ; \
 	CONFIG_SITE=no-such-file $(SHELL) \
 	  $$s/$$module_srcdir/configure \
 	  --srcdir=$${topdir}/$$module_srcdir \
 	  $(TARGET_CONFIGARGS) --build=${build_alias} --host=${target_alias} \
-	  --target=${target_alias}  \
+	  --target=$${this_target} $${srcdiroption}  \
 	  || exit 1
 @endif target-rda
 
@@ -43355,6 +43721,9 @@ configure-target-libada:
 	$(SHELL) $(srcdir)/mkinstalldirs $(TARGET_SUBDIR)/libada ; \
 	$(NORMAL_TARGET_EXPORTS)  \
 	echo Configuring in $(TARGET_SUBDIR)/libada; \
+	 \
+	this_target="${target_alias}"; \
+	 \
 	cd "$(TARGET_SUBDIR)/libada" || exit 1; \
 	case $(srcdir) in \
 	  /* | [A-Za-z]:[\\/]*) topdir=$(srcdir) ;; \
@@ -43362,12 +43731,14 @@ configure-target-libada:
 		sed -e 's,\./,,g' -e 's,[^/]*/,../,g' `$(srcdir) ;; \
 	esac; \
 	module_srcdir=libada; \
+	srcdiroption="--srcdir=$${topdir}/libada"; \
+	libsrcdir="$$s/libada"; \
 	rm -f no-such-file || : ; \
 	CONFIG_SITE=no-such-file $(SHELL) \
 	  $$s/$$module_srcdir/configure \
 	  --srcdir=$${topdir}/$$module_srcdir \
 	  $(TARGET_CONFIGARGS) --build=${build_alias} --host=${target_alias} \
-	  --target=${target_alias}  \
+	  --target=$${this_target} $${srcdiroption}  \
 	  || exit 1
 @endif target-libada
 
@@ -43812,6 +44183,9 @@ configure-target-libgomp:
 	$(SHELL) $(srcdir)/mkinstalldirs $(TARGET_SUBDIR)/libgomp ; \
 	$(NORMAL_TARGET_EXPORTS)  \
 	echo Configuring in $(TARGET_SUBDIR)/libgomp; \
+	 \
+	this_target="${target_alias}"; \
+	 \
 	cd "$(TARGET_SUBDIR)/libgomp" || exit 1; \
 	case $(srcdir) in \
 	  /* | [A-Za-z]:[\\/]*) topdir=$(srcdir) ;; \
@@ -43819,12 +44193,14 @@ configure-target-libgomp:
 		sed -e 's,\./,,g' -e 's,[^/]*/,../,g' `$(srcdir) ;; \
 	esac; \
 	module_srcdir=libgomp; \
+	srcdiroption="--srcdir=$${topdir}/libgomp"; \
+	libsrcdir="$$s/libgomp"; \
 	rm -f no-such-file || : ; \
 	CONFIG_SITE=no-such-file $(SHELL) \
 	  $$s/$$module_srcdir/configure \
 	  --srcdir=$${topdir}/$$module_srcdir \
 	  $(TARGET_CONFIGARGS) --build=${build_alias} --host=${target_alias} \
-	  --target=${target_alias}  \
+	  --target=$${this_target} $${srcdiroption}  \
 	  || exit 1
 @endif target-libgomp
 
@@ -44789,6 +45165,9 @@ configure-target-libitm:
 	$(SHELL) $(srcdir)/mkinstalldirs $(TARGET_SUBDIR)/libitm ; \
 	$(NORMAL_TARGET_EXPORTS)  \
 	echo Configuring in $(TARGET_SUBDIR)/libitm; \
+	 \
+	this_target="${target_alias}"; \
+	 \
 	cd "$(TARGET_SUBDIR)/libitm" || exit 1; \
 	case $(srcdir) in \
 	  /* | [A-Za-z]:[\\/]*) topdir=$(srcdir) ;; \
@@ -44796,12 +45175,14 @@ configure-target-libitm:
 		sed -e 's,\./,,g' -e 's,[^/]*/,../,g' `$(srcdir) ;; \
 	esac; \
 	module_srcdir=libitm; \
+	srcdiroption="--srcdir=$${topdir}/libitm"; \
+	libsrcdir="$$s/libitm"; \
 	rm -f no-such-file || : ; \
 	CONFIG_SITE=no-such-file $(SHELL) \
 	  $$s/$$module_srcdir/configure \
 	  --srcdir=$${topdir}/$$module_srcdir \
 	  $(TARGET_CONFIGARGS) --build=${build_alias} --host=${target_alias} \
-	  --target=${target_alias}  \
+	  --target=$${this_target} $${srcdiroption}  \
 	  || exit 1
 @endif target-libitm
 
@@ -45247,6 +45628,9 @@ configure-target-libatomic:
 	$(SHELL) $(srcdir)/mkinstalldirs $(TARGET_SUBDIR)/libatomic ; \
 	$(NORMAL_TARGET_EXPORTS)  \
 	echo Configuring in $(TARGET_SUBDIR)/libatomic; \
+	 \
+	this_target="${target_alias}"; \
+	 \
 	cd "$(TARGET_SUBDIR)/libatomic" || exit 1; \
 	case $(srcdir) in \
 	  /* | [A-Za-z]:[\\/]*) topdir=$(srcdir) ;; \
@@ -45254,12 +45638,14 @@ configure-target-libatomic:
 		sed -e 's,\./,,g' -e 's,[^/]*/,../,g' `$(srcdir) ;; \
 	esac; \
 	module_srcdir=libatomic; \
+	srcdiroption="--srcdir=$${topdir}/libatomic"; \
+	libsrcdir="$$s/libatomic"; \
 	rm -f no-such-file || : ; \
 	CONFIG_SITE=no-such-file $(SHELL) \
 	  $$s/$$module_srcdir/configure \
 	  --srcdir=$${topdir}/$$module_srcdir \
 	  $(TARGET_CONFIGARGS) --build=${build_alias} --host=${target_alias} \
-	  --target=${target_alias}  \
+	  --target=$${this_target} $${srcdiroption}  \
 	  || exit 1
 @endif target-libatomic
 

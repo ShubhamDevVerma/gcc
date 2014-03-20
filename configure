@@ -673,6 +673,12 @@ LDFLAGS
 CFLAGS
 CC
 EXTRA_CONFIGARGS_LIBJAVA
+accel_target_os
+accel_target_vendor
+accel_target_cpu
+accel_target_alias
+accel_target
+accel_target_noncanonical
 target_subdir
 host_subdir
 build_subdir
@@ -746,7 +752,7 @@ ospace_frag'
 ac_user_opts='
 enable_option_checking
 with_build_libsubdir
-enable_accelerator
+enable_offload_targets
 enable_gold
 enable_ld
 enable_libquadmath
@@ -1466,9 +1472,8 @@ Optional Features:
   --disable-option-checking  ignore unrecognized --enable/--with options
   --disable-FEATURE       do not include FEATURE (same as --enable-FEATURE=no)
   --enable-FEATURE[=ARG]  include FEATURE [ARG=yes]
-  --enable-accelerator[=ARG]
-                          build accelerator
-                          [ARG={no,auto-device-triplet,device-triplet}]
+  --enable-offload-targets=LIST
+                          enable offloading to devices from LIST
   --enable-gold[=ARG]     build gold [ARG={default,yes,no}]
   --enable-ld[=ARG]       build ld [ARG={default,yes,no}]
   --disable-libquadmath   do not build libquadmath directory
@@ -2938,38 +2943,39 @@ case ${with_newlib} in
   yes) skipdirs=`echo " ${skipdirs} " | sed -e 's/ target-newlib / /'` ;;
 esac
 
-# Handle --enable-accelerator.  This is in top-level because both libgomp and
-# GCC proper need this information.
-# --disable-accelerator
-#   Default.  Do not build accelerator pieces, only support host execution.
-# --enable-accelerator=auto-device-triplet
-#   If possible, build accelerator pieces for 'device-triplet'.
-# --enable-accelerator=device-triplet
-#   Build accelerator pieces for 'device-triplet'.
-# Check whether --enable-accelerator was given.
-if test "${enable_accelerator+set}" = set; then :
-  enableval=$enable_accelerator; ENABLE_ACCELERATOR=$enableval
+offload_targets=
+
+# Check whether --enable-offload-targets was given.
+if test "${enable_offload_targets+set}" = set; then :
+  enableval=$enable_offload_targets;
+  if test x$enable_offload_targets = x; then
+    as_fn_error "no offload targets specified" "$LINENO" 5
+  fi
+
 else
-  ENABLE_ACCELERATOR=no
+  enable_offload_targets=
 fi
 
-accel_target_noncanonical=NONE
-case "${ENABLE_ACCELERATOR}" in
-  yes)
-    as_fn_error "--enable-accelerators must name accelerator" "$LINENO" 5
-    skipdirs="${skipdirs} accel-gcc"
-    ;;
-  no)
-    skipdirs="${skipdirs} accel-gcc"
-    ;;
-  auto-nvptx*|nvptx*)
-    accel_target_noncanonical=`echo "$ENABLE_ACCELERATOR" | sed -e s/auto-//g`
-    ;;
-  *)
-    as_fn_error "unrecognized accelerator" "$LINENO" 5
-    skipdirs="${skipdirs} accel-gcc"
-    ;;
+
+{ $as_echo "$as_me:${as_lineno-$LINENO}: checking accelerator target system type" >&5
+$as_echo_n "checking accelerator target system type... " >&6; }
+
+accel_target_alias=$accel_target_noncanonical
+case "$accel_target_alias" in
+NONE)
+  accel_target=NONE
+  ;;
+*)
+  accel_target=`$ac_config_sub $accel_target_alias`
+  ;;
 esac
+
+accel_target_cpu=`echo $accel_target | sed 's/^\([^-]*\)-\([^-]*\)-\(.*\)$/\1/'`
+accel_target_vendor=`echo $accel_target | sed 's/^\([^-]*\)-\([^-]*\)-\(.*\)$/\2/'`
+accel_target_os=`echo $accel_target | sed 's/^\([^-]*\)-\([^-]*\)-\(.*\)$/\3/'`
+{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $accel_target" >&5
+$as_echo "$accel_target" >&6; }
+
 
 # Handle --enable-gold, --enable-ld.
 # --disable-gold [--enable-ld]
@@ -8087,7 +8093,6 @@ case " $configdirs " in
     test $host = $build && RUNTEST='$$s/$(HOST_SUBDIR)/dejagnu/runtest'
     ;;
 esac
-
 
 # Host tools.
 ncn_tool_prefix=
