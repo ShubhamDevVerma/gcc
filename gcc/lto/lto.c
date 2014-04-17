@@ -3016,6 +3016,8 @@ read_cgraph_and_symbols (unsigned nfiles, const char **fnames)
   /* Read the symtab.  */
   input_symtab ();
 
+  input_offload_tables ();
+
   /* Store resolutions into the symbol table.  */
 
   FOR_EACH_SYMBOL (snode)
