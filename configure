@@ -673,6 +673,7 @@ LDFLAGS
 CFLAGS
 CC
 EXTRA_CONFIGARGS_LIBJAVA
+extra_liboffloadmic_configure_flags
 extra_accelerator_gcc_configure_flags
 extra_target_gcc_configure_flags
 accel_target_os
@@ -755,6 +756,7 @@ ac_user_opts='
 enable_option_checking
 with_build_libsubdir
 enable_offload_targets
+enable_as_accelerator_for
 enable_target_gcc_configure_flags
 enable_accelerator_gcc_configure_flags
 enable_gold
@@ -764,6 +766,7 @@ enable_libquadmath_support
 enable_libada
 enable_libssp
 enable_libstdcxx
+enable_liboffloadmic
 enable_static_libjava
 enable_bootstrap
 with_mpc
@@ -1478,6 +1481,8 @@ Optional Features:
   --enable-FEATURE[=ARG]  include FEATURE [ARG=yes]
   --enable-offload-targets=LIST
                           enable offloading to devices from LIST
+  --enable-as-accelerator-for
+                          build compiler as accelerator target for given host
   --enable-target-gcc-configure-flags=FLAGS
                           additional flags for configuring the target GCC
                           [none]
@@ -1492,6 +1497,8 @@ Optional Features:
   --enable-libada         build libada directory
   --enable-libssp         build libssp directory
   --disable-libstdcxx     do not build libstdc++-v3 directory
+  --enable-liboffloadmic=ARG
+                          build liboffloadmic [ARG={no,host,target}]
   --enable-static-libjava[=ARG]
                           build static libjava [default=no]
   --enable-bootstrap      enable bootstrapping [yes if native build]
@@ -2804,6 +2811,7 @@ target_libraries="target-libgcc \
 		target-newlib \
 		target-libgomp \
 		target-libcilkrts \
+		target-liboffloadmic \
 		target-libatomic \
 		target-libitm \
 		target-libstdc++-v3 \
@@ -2964,6 +2972,14 @@ if test "${enable_offload_targets+set}" = set; then :
 
 else
   enable_offload_targets=
+fi
+
+
+# Check whether --enable-as-accelerator-for was given.
+if test "${enable_as_accelerator_for+set}" = set; then :
+  enableval=$enable_as_accelerator_for; ENABLE_AS_ACCELERATOR_FOR=$enableval
+else
+  ENABLE_AS_ACCELERATOR_FOR=no
 fi
 
 
@@ -3177,6 +3193,44 @@ if test "${ENABLE_LIBSTDCXX}" = "no" ; then
   noconfigdirs="$noconfigdirs target-libstdc++-v3"
 fi
 
+# If this is accelerator compiler and its target is intelmic we enable
+# target liboffloadmic by default.  If this is compiler with offloading
+# for intelmic we enable host liboffloadmic by default.  Otherwise
+# liboffloadmic is disabled by default.
+# Check whether --enable-liboffloadmic was given.
+if test "${enable_liboffloadmic+set}" = set; then :
+  enableval=$enable_liboffloadmic; case "$enableval" in
+  no | host | target)
+    enable_liboffloadmic=$enableval ;;
+  *)
+    as_fn_error "--enable-liboffloadmic=no/host/target" "$LINENO" 5 ;;
+esac
+else
+  if test "${ENABLE_AS_ACCELERATOR_FOR}" != "no"; then
+  case "${target}" in
+    *-intelmic-*)
+      enable_liboffloadmic=target
+      extra_liboffloadmic_configure_flags="--enable-liboffloadmic=target"
+      ;;
+    *)
+      enable_liboffloadmic=no
+      ;;
+  esac
+else
+  case "${enable_offload_targets}" in
+    *-intelmic-*)
+      enable_liboffloadmic=host
+      extra_liboffloadmic_configure_flags="--enable-liboffloadmic=host"
+      ;;
+    *)
+      enable_liboffloadmic=no
+      ;;
+    esac
+fi
+fi
+
+
+
 # Save it here so that, even in case of --enable-libgcj, if the Java
 # front-end isn't enabled, we still get libgcj disabled.
 libgcj_saved=$libgcj
@@ -3263,6 +3317,25 @@ $as_echo_n "checking for libcilkrts support... " >&6; }
 	    { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
 $as_echo "no" >&6; }
 	    noconfigdirs="$noconfigdirs target-libcilkrts"
+	else
+	    { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes" >&5
+$as_echo "yes" >&6; }
+	fi
+    fi
+fi
+
+# Disable liboffloadmic on unsupported systems.
+if test -d ${srcdir}/liboffloadmic; then
+    if test x$enable_liboffloadmic != xno; then
+	{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for liboffloadmic support" >&5
+$as_echo_n "checking for liboffloadmic support... " >&6; }
+	if (srcdir=${srcdir}/liboffloadmic; \
+		. ${srcdir}/configure.tgt; \
+		test -n "$UNSUPPORTED")
+	then
+	    { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+$as_echo "no" >&6; }
+	    noconfigdirs="$noconfigdirs target-liboffloadmic"
 	else
 	    { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes" >&5
 $as_echo "yes" >&6; }
@@ -6591,7 +6664,7 @@ case ,${enable_languages},:${enable_objc_gc} in
     ;;
 esac
 
-# Disable libcilkrts, libitm, libsanitizer, libvtv if we're not building C++
+# Disable libcilkrts, libitm, libsanitizer, libvtv, liboffloadmic if we're not building C++
 case ,${enable_languages}, in
   *,c++,*)
     # Disable libcilkrts, libitm, libsanitizer if we're not building libstdc++
@@ -6603,7 +6676,7 @@ case ,${enable_languages}, in
     esac
     ;;
   *)
-    noconfigdirs="$noconfigdirs target-libcilkrts target-libitm target-libsanitizer target-libvtv"
+    noconfigdirs="$noconfigdirs target-libcilkrts target-liboffloadmic target-libitm target-libsanitizer target-libvtv"
     ;;
 esac
 
