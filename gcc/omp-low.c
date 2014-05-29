@@ -7919,6 +7919,7 @@ expand_omp_target (struct omp_region *region)
   if (kind == GF_OMP_TARGET_KIND_REGION)
     {
       unsigned srcidx, dstidx, num;
+      struct cgraph_node *node;
 
       /* If the target region needs data sent from the parent
 	 function, then the very first statement (except possible
@@ -8049,6 +8050,11 @@ expand_omp_target (struct omp_region *region)
 	 fixed in a following pass.  */
       push_cfun (child_cfun);
       rebuild_cgraph_edges ();
+
+      /* Prevent IPA from removing child_fn as unreachable, since there are no
+	 refs from the parent function to the target side child_fn.  */
+      node = cgraph_node::get (child_fn);
+      node->mark_force_output ();
 
       /* Some EH regions might become dead, see PR34608.  If
 	 pass_cleanup_cfg isn't the first pass to happen with the
