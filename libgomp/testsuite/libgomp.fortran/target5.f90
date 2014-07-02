@@ -1,5 +1,5 @@
 ! { dg-do compile }
-! { dg-options "-fopenmp" }
+! { dg-options "-fopenmp -flto" }
 
   integer :: r
   r = 0

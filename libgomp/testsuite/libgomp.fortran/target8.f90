@@ -1,4 +1,5 @@
 ! { dg-do run }
+! { dg-options "-flto" }
 
   integer, parameter :: n = 1000
   integer, parameter :: c = 100

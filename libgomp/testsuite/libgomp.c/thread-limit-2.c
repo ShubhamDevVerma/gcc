@@ -1,4 +1,5 @@
 /* { dg-do run } */
+/* { dg-options "-flto" } */
 /* { dg-set-target-env-var OMP_THREAD_LIMIT "9" } */
 
 #include <stdlib.h>

@@ -1,4 +1,5 @@
 ! { dg-do run }
+! { dg-options "-flto" }
 
   interface
     real function foo (x)

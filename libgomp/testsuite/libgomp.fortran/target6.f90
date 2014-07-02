@@ -1,4 +1,5 @@
 ! { dg-do run }
+! { dg-options "-flto" }
 
 module target6
 contains

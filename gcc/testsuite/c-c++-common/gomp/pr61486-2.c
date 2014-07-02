@@ -1,6 +1,6 @@
 /* PR middle-end/61486 */
 /* { dg-do compile } */
-/* { dg-options "-fopenmp" } */
+/* { dg-options "-fopenmp -flto" } */
 
 #pragma omp declare target
 void dosomething (int *a, int n, int m);
