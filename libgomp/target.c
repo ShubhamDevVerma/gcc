@@ -711,6 +711,7 @@ GOMP_target (int device, void (*fn) (void *), const void *openmp_target,
       return;
     }
 
+  gomp_mutex_lock (&devicep->dev_env_lock);
   if (!devicep->is_initialized)
     gomp_init_device (devicep);
 
@@ -720,6 +721,7 @@ GOMP_target (int device, void (*fn) (void *), const void *openmp_target,
   splay_tree_key tgt_fn = splay_tree_lookup (&devicep->dev_splay_tree, &k);
   if (tgt_fn == NULL && devicep->type != TARGET_TYPE_HOST)
     gomp_fatal ("Target function wasn't mapped");
+  gomp_mutex_unlock (&devicep->dev_env_lock);
 
   struct target_mem_desc *tgt_vars
     = gomp_map_vars (devicep, mapnum, hostaddrs, sizes, kinds, true);
@@ -764,8 +766,10 @@ GOMP_target_data (int device, const void *openmp_target, size_t mapnum,
       return;
     }
 
+  gomp_mutex_lock (&devicep->dev_env_lock);
   if (!devicep->is_initialized)
     gomp_init_device (devicep);
+  gomp_mutex_unlock (&devicep->dev_env_lock);
 
   struct target_mem_desc *tgt
     = gomp_map_vars (devicep, mapnum, hostaddrs, sizes, kinds, false);
@@ -794,8 +798,10 @@ GOMP_target_update (int device, const void *openmp_target, size_t mapnum,
   if (devicep == NULL)
     return;
 
+  gomp_mutex_lock (&devicep->dev_env_lock);
   if (!devicep->is_initialized)
     gomp_init_device (devicep);
+  gomp_mutex_unlock (&devicep->dev_env_lock);
 
   gomp_update (devicep, mapnum, hostaddrs, sizes, kinds);
 }
